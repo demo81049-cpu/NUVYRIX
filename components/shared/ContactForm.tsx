@@ -145,7 +145,17 @@ export function ContactForm() {
           role="alert"
           className="rounded-2xl bg-destructive/10 px-4 py-3 text-sm font-medium text-destructive"
         >
-          {status.message}
+          {status.message}{" "}
+          <span className="mt-1 block font-normal">
+            Need help now?{" "}
+            <a
+              href={`mailto:${siteConfig.email}`}
+              className="font-semibold underline underline-offset-2"
+            >
+              Email us directly
+            </a>
+            .
+          </span>
         </p>
       )}
 
