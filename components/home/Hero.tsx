@@ -32,16 +32,16 @@ export function Hero() {
             />
           </div>
 
-          <p className="mb-4 text-xs font-bold uppercase tracking-[0.35em] text-muted-foreground">
-            Technologies
+          <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-muted-foreground">
+            NUVYRIX TECHNOLOGIES · KOLKATA &amp; WEST BENGAL
           </p>
 
-          <h1 className="font-serif text-5xl font-extrabold tracking-tight text-foreground md:text-7xl">
-            {siteConfig.name.slice(0, -1)}
-            <span className="brand-gradient-text">X</span>
+          <h1 className="font-serif text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl">
+            Websites &amp; apps{" "}
+            <span className="brand-gradient-text">for Kolkata businesses</span>
           </h1>
 
-          <p className="mt-4 font-serif text-2xl font-semibold brand-gradient-text md:text-3xl">
+          <p className="mt-4 font-serif text-xl font-semibold brand-gradient-text md:text-2xl">
             {siteConfig.tagline}
           </p>
 

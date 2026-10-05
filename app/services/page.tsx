@@ -13,13 +13,6 @@ export const metadata = createPageMetadata({
   description:
     "Website development, mobile apps, UI/UX design, and launch support for businesses in Kolkata and across West Bengal from NUVYRIX TECHNOLOGIES.",
   path: "/services",
-  keywords: [
-    "web development services Kolkata",
-    "website design Kolkata",
-    "mobile app development West Bengal",
-    "UI UX design Kolkata",
-    "ecommerce website development Kolkata",
-  ],
 });
 
 export default function ServicesPage() {
@@ -27,7 +20,7 @@ export default function ServicesPage() {
     <>
       <PageHero
         eyebrow="Services"
-        title="Everything you need to ship"
+        title="Web, app & product development"
         description="Whether you’re launching a marketing site or a full product, we cover design, engineering, and the growth that comes after."
       />
 

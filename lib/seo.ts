@@ -5,7 +5,6 @@ type PageMetadataOptions = {
   title: string;
   description: string;
   path: string;
-  keywords?: string[];
   noIndex?: boolean;
 };
 
@@ -13,7 +12,6 @@ export function createPageMetadata({
   title,
   description,
   path,
-  keywords,
   noIndex = false,
 }: PageMetadataOptions): Metadata {
   const pageTitle = `${title} | ${siteConfig.name}`;
@@ -21,7 +19,6 @@ export function createPageMetadata({
   return {
     title,
     description,
-    keywords,
     authors: [{ name: siteConfig.fullName, url: siteConfig.url }],
     publisher: siteConfig.fullName,
     alternates: { canonical: path },

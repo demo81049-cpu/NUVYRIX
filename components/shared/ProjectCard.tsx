@@ -38,7 +38,7 @@ export function ProjectCard({
       >
         <Image
           src={project.image}
-          alt={`${project.title} project preview`}
+          alt={project.imageAlt}
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, 33vw"

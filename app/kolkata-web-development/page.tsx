@@ -15,16 +15,6 @@ export const metadata: Metadata = createPageMetadata({
   title: "Web Development in Kolkata",
   description,
   path: "/kolkata-web-development",
-  keywords: [
-    "web development company Kolkata",
-    "website development Kolkata",
-    "web designer Kolkata",
-    "mobile app developers Kolkata",
-    "UI UX design Kolkata",
-    "web development West Bengal",
-    "freelance web developer Kolkata",
-    "ecommerce development Kolkata",
-  ],
 });
 
 const localServiceData = {
@@ -233,6 +223,54 @@ export default function KolkataWebDevelopmentPage() {
             >
               Live portfolio
             </Link>
+          </div>
+        </div>
+      </Section>
+
+      <Section width="5xl">
+        <div className="mx-auto max-w-3xl">
+          <p className="text-center text-xs font-bold uppercase tracking-[0.22em] text-secondary">
+            Before you get in touch
+          </p>
+          <h2 className="mt-3 text-center text-3xl sm:text-4xl">
+            Frequently asked questions
+          </h2>
+          <div className="mt-8 space-y-4">
+            <article className="rounded-2xl border border-border/70 bg-white p-6">
+              <h3 className="text-lg font-bold">
+                What can NUVYRIX help my business build?
+              </h3>
+              <p className="mt-2 leading-7 text-muted-foreground">
+                Projects include business websites, custom web applications,
+                mobile apps, product design, and ongoing development. The right
+                scope depends on your goals and requirements.
+              </p>
+            </article>
+            <article className="rounded-2xl border border-border/70 bg-white p-6">
+              <h3 className="text-lg font-bold">
+                Do you work with clients outside Kolkata?
+              </h3>
+              <p className="mt-2 leading-7 text-muted-foreground">
+                Yes. NUVYRIX works with businesses in Kolkata, across West
+                Bengal, and throughout India.
+              </p>
+            </article>
+            <article className="rounded-2xl border border-border/70 bg-white p-6">
+              <h3 className="text-lg font-bold">
+                How do I start a project discussion?
+              </h3>
+              <p className="mt-2 leading-7 text-muted-foreground">
+                Send a short description of what you want to build through the{" "}
+                <Link
+                  href="/contact"
+                  className="font-semibold text-primary underline-offset-4 hover:underline"
+                >
+                  contact page
+                </Link>
+                . We can then discuss the requirements and a suitable next
+                step.
+              </p>
+            </article>
           </div>
         </div>
       </Section>

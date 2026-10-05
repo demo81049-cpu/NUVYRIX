@@ -11,11 +11,6 @@ export const metadata = createPageMetadata({
   description:
     "Contact NUVYRIX TECHNOLOGIES about website development, mobile apps, or product design for your business in Kolkata or West Bengal.",
   path: "/contact",
-  keywords: [
-    "contact web developer Kolkata",
-    "hire app developer West Bengal",
-    "Kolkata website project inquiry",
-  ],
 });
 
 export default function ContactPage() {

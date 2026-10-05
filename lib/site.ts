@@ -89,6 +89,7 @@ export type Project = {
   title: string;
   category: string;
   summary: string;
+  imageAlt: string;
   outcome: string;
   gradient: string;
   image: string;
@@ -102,6 +103,7 @@ export const projects: Project[] = [
     category: "Web + App",
     summary:
       "Fresh grocery delivery platform with wallet cashback, 45-minute delivery, and franchise growth across India.",
+    imageAlt: "Fresh vegetables arranged on a supermarket display",
     outcome: "Live at bringbasket.in",
     gradient: "from-emerald-400 via-sky-500 to-violet-600",
     image: "/projects/bringbasket.jpg",
@@ -113,6 +115,7 @@ export const projects: Project[] = [
     category: "Web + App",
     summary:
       "B2B kirana wholesale FMCG platform—wholesale pricing and 60-minute delivery for retailers in Noida & Greater Noida.",
+    imageAlt: "A person using a laptop and phone at a cafe table",
     outcome: "Live at cirkle.market",
     gradient: "from-orange-400 via-rose-500 to-violet-600",
     image: "/projects/cirkle.jpg",
@@ -124,6 +127,7 @@ export const projects: Project[] = [
     category: "Web",
     summary:
       "Founding membership site for international travel safety—human concierge, trip planning, and pre-launch reservations.",
+    imageAlt: "Airplane wing above clouds at sunset",
     outcome: "Live at vnoras.com",
     gradient: "from-sky-400 via-indigo-500 to-violet-700",
     image: "/projects/vnoras.jpg",
@@ -135,6 +139,7 @@ export const projects: Project[] = [
     category: "App",
     summary:
       "Cashback rewards app for recharges, bill pay, insurance, and credit card payments with instant redeemable savings.",
+    imageAlt: "Retail customer completing a checkout with a payment terminal",
     outcome: "Live at paykash.in",
     gradient: "from-cyan-400 via-blue-600 to-fuchsia-500",
     image: "/projects/paykash.jpg",

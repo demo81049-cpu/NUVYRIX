@@ -10,11 +10,6 @@ export const metadata = createPageMetadata({
   description:
     "Explore live websites and apps built by NUVYRIX TECHNOLOGIES for businesses in Kolkata, West Bengal, and across India.",
   path: "/portfolio",
-  keywords: [
-    "web development portfolio Kolkata",
-    "app development portfolio West Bengal",
-    "NUVYRIX projects",
-  ],
 });
 
 export default function PortfolioPage() {

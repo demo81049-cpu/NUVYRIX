@@ -12,11 +12,6 @@ export const metadata = createPageMetadata({
   description:
     "Meet NUVYRIX TECHNOLOGIES, a freelance web and app development studio serving businesses in Kolkata, West Bengal, and across India.",
   path: "/about",
-  keywords: [
-    "about NUVYRIX Technologies",
-    "freelance web development Kolkata",
-    "app development studio West Bengal",
-  ],
 });
 
 export default function AboutPage() {
@@ -39,7 +34,7 @@ export default function AboutPage() {
             <div className="organic-mask relative aspect-square overflow-hidden bg-[#05070d] shadow-[0_10px_40px_-10px_rgba(124,58,237,0.3)] ring-4 ring-white">
               <Image
                 src="/about-team.jpg"
-                alt="Collaborative product team at work"
+                alt="Developers collaborating around laptops at a table"
                 fill
                 className="object-cover object-center"
                 sizes="(max-width: 768px) 100vw, 28rem"
