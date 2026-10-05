@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Nunito } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { services, siteConfig } from "@/lib/site";
@@ -152,6 +153,7 @@ export default function RootLayout({
         <SiteHeader />
         <main className="relative z-0 flex-1">{children}</main>
         <SiteFooter />
+        <Analytics />
       </body>
     </html>
   );
