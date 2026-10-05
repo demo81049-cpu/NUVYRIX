@@ -155,7 +155,7 @@ export function PaymentForm() {
           },
         },
         handler: async (response) => {
-          setStatus({ type: "loading", message: "Verifying & saving payment…" });
+          setStatus({ type: "loading", message: "Verifying payment…" });
           try {
             const verifyRes = await fetch("/api/verify-payment", {
               method: "POST",
@@ -319,8 +319,8 @@ export function PaymentForm() {
 
           <p className="mt-5 text-sm text-muted-foreground">
             {status.emailSent
-              ? "A confirmation email was sent to our team."
-              : "Payment is verified and saved. Email notify may be delayed."}
+              ? "Our team has been notified by email."
+              : `Payment is verified, but our email notification could not be sent. Please contact us at ${siteConfig.email} with your payment ID.`}
           </p>
 
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
@@ -363,7 +363,7 @@ export function PaymentForm() {
           <ShieldCheck className="mt-0.5 shrink-0 text-primary" size={20} />
           <p>
             Secure Razorpay checkout. After payment we verify the signature,
-            save the record, and email our team.
+            then email our team with the payment details.
           </p>
         </div>
 

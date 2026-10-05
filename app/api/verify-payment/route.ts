@@ -2,7 +2,6 @@ import { createHmac, timingSafeEqual } from "crypto";
 import { NextResponse } from "next/server";
 import { sendPaymentNotification } from "@/lib/mail";
 import { getRazorpayClient } from "@/lib/razorpay";
-import { savePayment } from "@/lib/storage";
 
 type VerifyBody = {
   razorpay_order_id?: string;
@@ -89,18 +88,6 @@ export async function POST(request: Request) {
     const phone = String(order.notes?.payer_phone || "").trim();
     const amountInr = (amountPaise / 100).toFixed(2);
 
-    const saved = await savePayment({
-      orderId,
-      paymentId,
-      amountPaise,
-      amountInr,
-      currency,
-      reason: reason || "Payment",
-      name,
-      email,
-      phone,
-    });
-
     let emailSent = false;
     try {
       await sendPaymentNotification({
@@ -122,7 +109,6 @@ export async function POST(request: Request) {
       success: true,
       order_id: orderId,
       payment_id: paymentId,
-      saved_id: saved.id,
       email_sent: emailSent,
     });
   } catch (error) {

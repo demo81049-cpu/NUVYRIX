@@ -58,7 +58,7 @@ export function ContactForm() {
           </div>
           <h3 className="mt-5 text-2xl font-bold">Message sent</h3>
           <p className="mt-3 text-muted-foreground">
-            Thanks — we saved your inquiry and emailed{" "}
+            Thanks — your inquiry was emailed to{" "}
             <span className="font-semibold text-foreground">
               {siteConfig.email}
             </span>

@@ -43,6 +43,22 @@ Account IDs and Merchant IDs are not API keys and cannot authenticate checkout.
 Never commit `.env` or expose `RAZORPAY_KEY_SECRET`; only the Key ID is sent to
 the browser for Razorpay Checkout.
 
+## Deploy to Vercel
+
+1. Import `demo81049-cpu/NUVYRIX` from GitHub in the Vercel dashboard. Vercel
+   detects Next.js automatically; keep the default build command (`npm run
+   build`) and output settings.
+2. In **Project Settings → Environment Variables**, add the variables listed in
+   `.env.example` for the Production environment. Add them to Preview too if
+   you want working contact and test payments on preview deployments.
+3. Use Razorpay **Test Mode** API keys for previews. Add Live Mode API keys only
+   to Production after enabling and verifying the Razorpay account.
+4. Redeploy after changing environment variables. Configure `nuvyrix.tech` in
+   **Project Settings → Domains** and follow Vercel’s DNS instructions.
+
+Contact inquiries and verified payments are emailed via SMTP and are **not
+stored by the website**. Keep a payment record in the Razorpay dashboard.
+
 ## Scripts
 
 ```bash
@@ -54,5 +70,4 @@ npm run lint     # ESLint
 
 ## Notes
 
-- Payments and contact submissions are saved under `data/` locally (gitignored JSON) and emailed via SMTP.
 - Razorpay Standard Checkout docs: https://razorpay.com/docs/payments/payment-gateway/web-integration/standard/

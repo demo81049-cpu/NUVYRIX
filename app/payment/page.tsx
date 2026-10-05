@@ -41,7 +41,7 @@ export default function PaymentPage() {
               </li>
               <li className="rounded-[1.5rem] rounded-br-[2.5rem] border border-border/50 bg-card/90 p-5 shadow-[0_4px_20px_-2px_rgba(2,132,199,0.08)] backdrop-blur">
                 <span className="font-bold text-primary">3.</span> Pay in the
-                checkout modal — we verify, save, and email the team.
+                checkout modal — we verify the payment and email the team.
               </li>
             </ol>
             <p className="mt-8 text-sm text-muted-foreground">

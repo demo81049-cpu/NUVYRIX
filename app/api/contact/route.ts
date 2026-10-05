@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { sendContactNotification } from "@/lib/mail";
-import { saveContact } from "@/lib/storage";
 
 type ContactBody = {
   name?: string;
@@ -24,20 +23,15 @@ export async function POST(request: Request) {
       );
     }
 
-    const saved = await saveContact({ name, email, type, message });
-
-    let emailSent = false;
     try {
       await sendContactNotification({ name, email, type, message });
-      emailSent = true;
     } catch (mailError) {
       console.error("contact email failed:", mailError);
       return NextResponse.json(
         {
           success: false,
           error:
-            "Your message was saved, but email delivery failed. Please try WhatsApp or call us.",
-          saved_id: saved.id,
+            "We couldn’t email your message. Please contact us by WhatsApp or phone.",
         },
         { status: 502 },
       );
@@ -45,8 +39,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
-      saved_id: saved.id,
-      email_sent: emailSent,
+      email_sent: true,
     });
   } catch (error) {
     console.error("contact submit error:", error);
