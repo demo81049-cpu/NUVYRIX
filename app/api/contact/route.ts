@@ -38,11 +38,14 @@ export async function POST(request: Request) {
     }
 
     try {
-      const sql = getDb();
-      await sql`
-        INSERT INTO contact_inquiries (name, email, project_type, message)
-        VALUES (${name}, ${email}, ${type}, ${message})
-      `;
+      const db = await getDb();
+      await db.collection("contact_inquiries").insertOne({
+        name,
+        email,
+        projectType: type,
+        message,
+        createdAt: new Date(),
+      });
     } catch (databaseError) {
       console.error("contact database insert failed:", databaseError);
       return NextResponse.json(

@@ -1,5 +1,6 @@
 import { createHmac, timingSafeEqual } from "crypto";
 import { NextResponse } from "next/server";
+import { MongoServerError } from "mongodb";
 import { getDb } from "@/lib/db";
 
 type RazorpayWebhook = {
@@ -26,6 +27,13 @@ const paymentEventStatuses: Record<string, "authorized" | "captured" | "failed">
     "payment.failed": "failed",
     "order.paid": "captured",
   };
+
+type PaymentDocument = {
+  orderId: string;
+  paymentId?: string;
+  status: "created" | "authorized" | "captured" | "failed";
+  updatedAt: Date;
+};
 
 export async function POST(request: Request) {
   try {
@@ -64,7 +72,7 @@ export async function POST(request: Request) {
 
     const event = JSON.parse(rawBody) as RazorpayWebhook;
     const status = event.event ? paymentEventStatuses[event.event] : undefined;
-    if (!status) {
+    if (!event.event || !status) {
       return NextResponse.json({ received: true, ignored: true });
     }
 
@@ -79,10 +87,9 @@ export async function POST(request: Request) {
     }
 
     const paymentId = event.payload?.payment?.entity?.id ?? null;
-    const sql = getDb();
-    const [paymentRecord] = await sql`
-      SELECT order_id FROM payment_records WHERE order_id = ${orderId}
-    `;
+    const db = await getDb();
+    const payments = db.collection<PaymentDocument>("payment_records");
+    const paymentRecord = await payments.findOne({ orderId });
     if (!paymentRecord) {
       return NextResponse.json(
         { error: "Payment order was not found." },
@@ -90,25 +97,49 @@ export async function POST(request: Request) {
       );
     }
 
-    await sql`
-      WITH new_event AS (
-        INSERT INTO payment_webhook_events (event_id, event_type)
-        VALUES (${eventId}, ${event.event})
-        ON CONFLICT (event_id) DO NOTHING
-        RETURNING event_id
-      )
-      UPDATE payment_records
-      SET
-        payment_id = COALESCE(${paymentId}, payment_id),
-        status = CASE
-          WHEN status = 'captured' AND ${status} <> 'captured' THEN status
-          ELSE ${status}
-        END,
-        updated_at = NOW()
-      WHERE order_id = ${orderId}
-        AND EXISTS (SELECT 1 FROM new_event)
-      RETURNING order_id
-    `;
+    try {
+      await db
+        .collection<{
+          _id: string;
+          eventType: string;
+          receivedAt: Date;
+        }>("payment_webhook_events")
+        .insertOne({
+            _id: eventId,
+            eventType: event.event,
+            receivedAt: new Date(),
+          });
+    } catch (error) {
+      if (error instanceof MongoServerError && error.code === 11000) {
+        return NextResponse.json({ received: true, duplicate: true });
+      }
+      throw error;
+    }
+
+    try {
+      const eligibleStatuses: PaymentDocument["status"][] =
+        status === "captured"
+          ? ["created", "authorized", "failed", "captured"]
+          : status === "failed"
+            ? ["created", "authorized", "failed"]
+            : ["created", "authorized"];
+
+      await payments.updateOne(
+        { orderId, status: { $in: eligibleStatuses } },
+        {
+          $set: {
+            status,
+            updatedAt: new Date(),
+            ...(paymentId ? { paymentId } : {}),
+          },
+        },
+      );
+    } catch (error) {
+      await db
+        .collection<{ _id: string }>("payment_webhook_events")
+        .deleteOne({ _id: eventId });
+      throw error;
+    }
 
     return NextResponse.json({ received: true });
   } catch (error) {

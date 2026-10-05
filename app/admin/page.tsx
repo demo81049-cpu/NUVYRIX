@@ -8,6 +8,7 @@ import {
   verifyAdminSession,
 } from "@/lib/admin-auth";
 import { getDb } from "@/lib/db";
+import type { ObjectId } from "mongodb";
 
 export const metadata: Metadata = {
   title: "Admin",
@@ -19,23 +20,25 @@ type Inquiry = {
   id: string;
   name: string;
   email: string;
-  project_type: string;
+  projectType: string;
   message: string;
-  created_at: Date | string;
+  createdAt: Date;
 };
 
 type PaymentRecord = {
-  order_id: string;
-  payment_id: string | null;
-  amount_paise: number | string;
+  orderId: string;
+  paymentId?: string;
+  amountPaise: number;
   currency: string;
   reason: string;
   status: "created" | "authorized" | "captured" | "failed";
-  created_at: Date | string;
-  updated_at: Date | string;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
-function formatDate(value: Date | string) {
+type InquiryDocument = Omit<Inquiry, "id"> & { _id: ObjectId };
+
+function formatDate(value: Date) {
   return new Intl.DateTimeFormat("en-IN", {
     dateStyle: "medium",
     timeStyle: "short",
@@ -66,23 +69,26 @@ export default async function AdminPage() {
   let inquiries: Inquiry[];
   let payments: PaymentRecord[];
   try {
-    const sql = getDb();
-    [inquiries, payments] = await Promise.all([
-      sql`
-        SELECT id, name, email, project_type, message, created_at
-        FROM contact_inquiries
-        ORDER BY created_at DESC
-        LIMIT 100
-      `,
-      sql`
-        SELECT
-          order_id, payment_id, amount_paise, currency, reason, status,
-          created_at, updated_at
-        FROM payment_records
-        ORDER BY created_at DESC
-        LIMIT 100
-      `,
-    ]) as [Inquiry[], PaymentRecord[]];
+    const db = await getDb();
+    const [inquiryDocuments, paymentDocuments] = await Promise.all([
+      db
+        .collection<InquiryDocument>("contact_inquiries")
+        .find()
+        .sort({ createdAt: -1 })
+        .limit(100)
+        .toArray(),
+      db
+        .collection<PaymentRecord>("payment_records")
+        .find()
+        .sort({ createdAt: -1 })
+        .limit(100)
+        .toArray(),
+    ]);
+    inquiries = inquiryDocuments.map(({ _id, ...inquiry }) => ({
+      ...inquiry,
+      id: _id.toString(),
+    }));
+    payments = paymentDocuments;
   } catch (error) {
     console.error("admin dashboard database query failed:", error);
     return (
@@ -91,8 +97,8 @@ export default async function AdminPage() {
           <div>
             <h1 className="text-3xl font-bold">Admin dashboard unavailable</h1>
             <p className="mt-4 leading-7 text-muted-foreground">
-              We couldn’t load the records. Check the Neon connection and
-              confirm that the database schema has been applied.
+              We couldn’t load the records. Check the MongoDB connection and
+              database user permissions.
             </p>
           </div>
           <AdminSignOut />
@@ -151,14 +157,14 @@ export default async function AdminPage() {
                     </a>
                   </div>
                   <time
-                    dateTime={new Date(inquiry.created_at).toISOString()}
+                    dateTime={inquiry.createdAt.toISOString()}
                     className="text-xs text-muted-foreground"
                   >
-                    {formatDate(inquiry.created_at)} IST
+                    {formatDate(inquiry.createdAt)} IST
                   </time>
                 </div>
                 <p className="mt-4 inline-flex rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
-                  {inquiry.project_type}
+                  {inquiry.projectType}
                 </p>
                 <p className="mt-4 whitespace-pre-wrap text-sm leading-6 text-foreground/80">
                   {inquiry.message}
@@ -194,13 +200,13 @@ export default async function AdminPage() {
               </thead>
               <tbody className="divide-y divide-border/60">
                 {payments.map((payment) => (
-                  <tr key={payment.order_id} className="align-top">
+                  <tr key={payment.orderId} className="align-top">
                     <td className="whitespace-nowrap px-5 py-4 text-muted-foreground">
-                      {formatDate(payment.created_at)} IST
+                      {formatDate(payment.createdAt)} IST
                     </td>
                     <td className="whitespace-nowrap px-5 py-4 font-semibold">
                       {payment.currency}{" "}
-                      {(Number(payment.amount_paise) / 100).toFixed(2)}
+                      {(payment.amountPaise / 100).toFixed(2)}
                     </td>
                     <td className="max-w-xs px-5 py-4">{payment.reason}</td>
                     <td className="px-5 py-4">
@@ -209,10 +215,10 @@ export default async function AdminPage() {
                       </span>
                     </td>
                     <td className="space-y-1 px-5 py-4 font-mono text-xs">
-                      <p className="break-all">{payment.order_id}</p>
-                      {payment.payment_id && (
+                      <p className="break-all">{payment.orderId}</p>
+                      {payment.paymentId && (
                         <p className="break-all text-muted-foreground">
-                          {payment.payment_id}
+                          {payment.paymentId}
                         </p>
                       )}
                     </td>

@@ -62,15 +62,22 @@ export async function POST(request: Request) {
     });
 
     try {
-      const sql = getDb();
-      await sql`
-        INSERT INTO payment_records (
-          order_id, amount_paise, currency, reason, status
-        )
-        VALUES (
-          ${order.id}, ${order.amount}, ${order.currency}, ${reason}, 'created'
-        )
-      `;
+      const db = await getDb();
+      await db.collection("payment_records").updateOne(
+        { orderId: order.id },
+        {
+          $setOnInsert: {
+            orderId: order.id,
+            amountPaise: order.amount,
+            currency: order.currency,
+            reason,
+            status: "created",
+            createdAt: new Date(),
+          },
+          $set: { updatedAt: new Date() },
+        },
+        { upsert: true },
+      );
     } catch (databaseError) {
       console.error("payment order database insert failed:", databaseError);
       return NextResponse.json(

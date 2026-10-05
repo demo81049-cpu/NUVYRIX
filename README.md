@@ -32,7 +32,8 @@ them with `vercel env pull .env.development.local`.
 
 | Variable | Purpose |
 |----------|---------|
-| `DATABASE_URL` | Neon pooled Postgres connection string |
+| `MONGODB_URI` | Server-only MongoDB Atlas connection string |
+| `MONGODB_DB_NAME` | MongoDB database name (defaults to `nuvyrix`) |
 | `RAZORPAY_KEY_ID` | Razorpay API Key ID; the server returns it to Checkout |
 | `RAZORPAY_KEY_SECRET` | Server-only Razorpay API Key Secret |
 | `RAZORPAY_WEBHOOK_SECRET` | Server-only signing secret configured for the webhook endpoint |
@@ -59,12 +60,17 @@ review the latest contact inquiries and payment records. The login has no
 public signup, and the signed session cookie is HTTP-only, secure in
 production, and expires after eight hours.
 
-### Neon database setup
+### MongoDB Atlas setup
 
-Connect the Neon integration to this Vercel project so it provides
-`DATABASE_URL`. In the Neon SQL Editor, run [`db/schema.sql`](./db/schema.sql)
-once to create the contact, payment, and webhook-event tables. Do not use
-`DATABASE_URL_UNPOOLED` for these serverless request handlers.
+Create a database user with a strong password and permission to read and write
+the application's database. Add `MONGODB_URI` to Vercel without committing or
+sharing the connection string, and set `MONGODB_DB_NAME` to `nuvyrix` (or your
+chosen database name). The application creates the collections and required
+indexes on first database use. In Atlas, allow network access from the
+deployment; prefer restricting it to known static egress IPs where available.
+If the hosting plan does not provide static egress, understand the exposure
+before allowing `0.0.0.0/0`, and protect access with a dedicated least-privilege
+database user.
 
 ### Razorpay webhook setup
 
@@ -80,8 +86,8 @@ events before updating payment status.
 1. Import `demo81049-cpu/NUVYRIX` from GitHub in the Vercel dashboard. Vercel
    detects Next.js automatically; keep the default build command (`npm run
    build`) and output settings.
-2. In **Project Settings → Environment Variables**, confirm the Neon integration
-   supplies `DATABASE_URL` and add the Razorpay and SMTP variables above.
+2. In **Project Settings → Environment Variables**, add `MONGODB_URI`,
+   `MONGODB_DB_NAME`, and the Razorpay, admin, and SMTP variables above.
    Configure Preview values too if you want working contact and test payments
    on preview deployments.
 3. Use Razorpay **Test Mode** API keys for previews. Add Live Mode API keys only
@@ -89,10 +95,10 @@ events before updating payment status.
 4. Redeploy after changing environment variables. Configure `nuvyrix.online` in
    **Project Settings → Domains** and follow Vercel’s DNS instructions.
 
-Contact inquiries are stored in Neon and emailed via SMTP. Payment order IDs,
-payment IDs, amounts, currency, reasons, and verified status are stored in
-Neon; payer contact details remain in Razorpay. Payment notifications continue
-to be emailed via SMTP.
+Contact inquiries are stored in MongoDB and emailed via SMTP. Payment order
+IDs, payment IDs, amounts, currency, reasons, and verified status are stored
+in MongoDB; payer contact details remain in Razorpay. Payment notifications
+continue to be emailed via SMTP.
 
 ## Search and local service area
 

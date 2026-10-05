@@ -90,22 +90,22 @@ export async function POST(request: Request) {
     const amountInr = (amountPaise / 100).toFixed(2);
 
     try {
-      const sql = getDb();
-      await sql`
-        INSERT INTO payment_records (
-          order_id, payment_id, amount_paise, currency, reason, status
-        )
-        VALUES (
-          ${orderId}, ${paymentId}, ${amountPaise}, ${currency}, ${reason || "Payment"}, 'captured'
-        )
-        ON CONFLICT (order_id) DO UPDATE SET
-          payment_id = EXCLUDED.payment_id,
-          amount_paise = EXCLUDED.amount_paise,
-          currency = EXCLUDED.currency,
-          reason = EXCLUDED.reason,
-          status = 'captured',
-          updated_at = NOW()
-      `;
+      const db = await getDb();
+      await db.collection("payment_records").updateOne(
+        { orderId },
+        {
+          $set: {
+            paymentId,
+            amountPaise,
+            currency,
+            reason: reason || "Payment",
+            status: "captured",
+            updatedAt: new Date(),
+          },
+          $setOnInsert: { createdAt: new Date() },
+        },
+        { upsert: true },
+      );
     } catch (databaseError) {
       console.error("verified payment database update failed:", databaseError);
       return NextResponse.json(
