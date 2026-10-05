@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getDb } from "@/lib/db";
+import { getDatabaseErrorMessage, getDb } from "@/lib/db";
 import { sendContactNotification } from "@/lib/mail";
 
 type ContactBody = {
@@ -47,11 +47,22 @@ export async function POST(request: Request) {
         createdAt: new Date(),
       });
     } catch (databaseError) {
-      console.error("contact database insert failed:", databaseError);
+      console.error("contact database insert failed:", {
+        name:
+          databaseError instanceof Error
+            ? databaseError.name
+            : "UnknownDatabaseError",
+        code:
+          typeof databaseError === "object" &&
+          databaseError !== null &&
+          "code" in databaseError
+            ? databaseError.code
+            : undefined,
+      });
       return NextResponse.json(
         {
           success: false,
-          error: "We couldn’t save your message. Please try again shortly.",
+          error: getDatabaseErrorMessage(databaseError),
         },
         { status: 503 },
       );
