@@ -1,5 +1,6 @@
 import { createHmac, timingSafeEqual } from "crypto";
 import { NextResponse } from "next/server";
+import { getDb } from "@/lib/db";
 import { sendPaymentNotification } from "@/lib/mail";
 import { getRazorpayClient } from "@/lib/razorpay";
 
@@ -87,6 +88,35 @@ export async function POST(request: Request) {
     const email = String(order.notes?.payer_email || "").trim();
     const phone = String(order.notes?.payer_phone || "").trim();
     const amountInr = (amountPaise / 100).toFixed(2);
+
+    try {
+      const sql = getDb();
+      await sql`
+        INSERT INTO payment_records (
+          order_id, payment_id, amount_paise, currency, reason, status
+        )
+        VALUES (
+          ${orderId}, ${paymentId}, ${amountPaise}, ${currency}, ${reason || "Payment"}, 'captured'
+        )
+        ON CONFLICT (order_id) DO UPDATE SET
+          payment_id = EXCLUDED.payment_id,
+          amount_paise = EXCLUDED.amount_paise,
+          currency = EXCLUDED.currency,
+          reason = EXCLUDED.reason,
+          status = 'captured',
+          updated_at = NOW()
+      `;
+    } catch (databaseError) {
+      console.error("verified payment database update failed:", databaseError);
+      return NextResponse.json(
+        {
+          success: false,
+          error:
+            "Payment was captured, but we couldn’t save its record. Please contact us with your payment ID.",
+        },
+        { status: 503 },
+      );
+    }
 
     let emailSent = false;
     try {

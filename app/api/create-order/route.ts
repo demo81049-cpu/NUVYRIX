@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getDb } from "@/lib/db";
 import { getRazorpayClient, getRazorpayKeyId } from "@/lib/razorpay";
 
 type CreateOrderBody = {
@@ -24,9 +25,16 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!reason) {
+    if (!reason || reason.length > 255) {
       return NextResponse.json(
-        { error: "Payment reason is required." },
+        { error: "Payment reason is required and must be under 256 characters." },
+        { status: 400 },
+      );
+    }
+
+    if (currency !== "INR") {
+      return NextResponse.json(
+        { error: "Only INR payments are supported." },
         { status: 400 },
       );
     }
@@ -52,6 +60,27 @@ export async function POST(request: Request) {
         payer_phone: body.phone?.trim() || "",
       },
     });
+
+    try {
+      const sql = getDb();
+      await sql`
+        INSERT INTO payment_records (
+          order_id, amount_paise, currency, reason, status
+        )
+        VALUES (
+          ${order.id}, ${order.amount}, ${order.currency}, ${reason}, 'created'
+        )
+      `;
+    } catch (databaseError) {
+      console.error("payment order database insert failed:", databaseError);
+      return NextResponse.json(
+        {
+          error:
+            "We couldn’t save this payment order. Please try again shortly.",
+        },
+        { status: 503 },
+      );
+    }
 
     return NextResponse.json({
       order_id: order.id,

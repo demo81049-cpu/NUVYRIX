@@ -10,7 +10,7 @@ type Status =
   | { type: "idle" }
   | { type: "loading" }
   | { type: "error"; message: string }
-  | { type: "success" };
+  | { type: "success"; emailSent: boolean };
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>({ type: "idle" });
@@ -38,7 +38,7 @@ export function ContactForm() {
         throw new Error(payload.error || "Could not send your message.");
       }
       form.reset();
-      setStatus({ type: "success" });
+      setStatus({ type: "success", emailSent: Boolean(payload.email_sent) });
     } catch (err) {
       setStatus({
         type: "error",
@@ -58,11 +58,17 @@ export function ContactForm() {
           </div>
           <h3 className="mt-5 text-2xl font-bold">Message sent</h3>
           <p className="mt-3 text-muted-foreground">
-            Thanks — your inquiry was emailed to{" "}
-            <span className="font-semibold text-foreground">
-              {siteConfig.email}
-            </span>
-            . We’ll reply soon.
+            {status.emailSent ? (
+              <>
+                Thanks — your inquiry was emailed to{" "}
+                <span className="font-semibold text-foreground">
+                  {siteConfig.email}
+                </span>
+                . We’ll reply soon.
+              </>
+            ) : (
+              <>Thanks — your inquiry was saved successfully. We’ll reply soon.</>
+            )}
           </p>
           <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Button variant="outline" onClick={() => setStatus({ type: "idle" })}>

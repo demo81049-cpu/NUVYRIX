@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getDb } from "@/lib/db";
 import { sendContactNotification } from "@/lib/mail";
 
 type ContactBody = {
@@ -16,30 +17,54 @@ export async function POST(request: Request) {
     const type = String(body.type || "").trim();
     const message = String(body.message || "").trim();
 
-    if (!name || !email || !type || !message) {
+    if (
+      !name ||
+      !email ||
+      !type ||
+      !message ||
+      name.length > 120 ||
+      email.length > 254 ||
+      type.length > 100 ||
+      message.length > 5000 ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    ) {
       return NextResponse.json(
-        { success: false, error: "Please fill in all required fields." },
+        {
+          success: false,
+          error: "Enter a valid email and complete each field within its limit.",
+        },
         { status: 400 },
       );
     }
 
     try {
-      await sendContactNotification({ name, email, type, message });
-    } catch (mailError) {
-      console.error("contact email failed:", mailError);
+      const sql = getDb();
+      await sql`
+        INSERT INTO contact_inquiries (name, email, project_type, message)
+        VALUES (${name}, ${email}, ${type}, ${message})
+      `;
+    } catch (databaseError) {
+      console.error("contact database insert failed:", databaseError);
       return NextResponse.json(
         {
           success: false,
-          error:
-            "We couldn’t email your message. Please contact us by WhatsApp or phone.",
+          error: "We couldn’t save your message. Please try again shortly.",
         },
-        { status: 502 },
+        { status: 503 },
       );
+    }
+
+    let emailSent = false;
+    try {
+      await sendContactNotification({ name, email, type, message });
+      emailSent = true;
+    } catch (mailError) {
+      console.error("contact email failed:", mailError);
     }
 
     return NextResponse.json({
       success: true,
-      email_sent: true,
+      email_sent: emailSent,
     });
   } catch (error) {
     console.error("contact submit error:", error);
