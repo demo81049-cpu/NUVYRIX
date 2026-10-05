@@ -24,6 +24,16 @@ export const metadata: Metadata = {
     template: `%s · ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  keywords: [
+    "web development Kolkata",
+    "website development Kolkata",
+    "mobile app development Kolkata",
+    "UI UX design Kolkata",
+    "web development West Bengal",
+    "website development West Bengal",
+    "app developers Kolkata",
+    "digital product studio India",
+  ],
   metadataBase: new URL(siteConfig.url),
   applicationName: siteConfig.fullName,
   category: "technology",
@@ -51,6 +61,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: siteConfig.fullName,
     locale: "en_IN",
+    countryName: "India",
     url: siteConfig.url,
     images: [
       {
@@ -81,10 +92,24 @@ const structuredData = {
       logo: new URL("/logo.png", siteConfig.url).toString(),
       email: siteConfig.email,
       telephone: siteConfig.phoneDisplay,
-      areaServed: {
-        "@type": "Country",
-        name: "India",
-      },
+      areaServed: [
+        {
+          "@type": "City",
+          name: "Kolkata",
+          containedInPlace: {
+            "@type": "AdministrativeArea",
+            name: "West Bengal",
+          },
+        },
+        {
+          "@type": "AdministrativeArea",
+          name: "West Bengal",
+        },
+        {
+          "@type": "Country",
+          name: "India",
+        },
+      ],
       knowsAbout: [
         "Web development",
         "Mobile app development",
@@ -109,6 +134,9 @@ const structuredData = {
         "@id": `${siteConfig.url}/#organization`,
       },
       inLanguage: "en-IN",
+      about: {
+        "@id": `${siteConfig.url}/#organization`,
+      },
     },
     {
       "@type": "OfferCatalog",

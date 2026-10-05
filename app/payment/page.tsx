@@ -9,6 +9,7 @@ export const metadata = createPageMetadata({
   title: "Pay",
   description: `Make a secure payment to ${siteConfig.fullName} via Razorpay.`,
   path: "/payment",
+  keywords: [],
   noIndex: true,
 });
 

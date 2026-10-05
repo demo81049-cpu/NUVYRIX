@@ -8,6 +8,7 @@ Built with **Next.js**, **Tailwind CSS**, **Razorpay**, and **Hostinger SMTP**.
 
 - `/` — Home
 - `/services` — Services
+- `/kolkata-web-development` — Web and app development for Kolkata and West Bengal
 - `/portfolio` — Live projects (BringBasket, cirKle, Vnoras, PayKash)
 - `/about` — About
 - `/payment` — Secure Razorpay checkout
@@ -53,11 +54,24 @@ the browser for Razorpay Checkout.
    you want working contact and test payments on preview deployments.
 3. Use Razorpay **Test Mode** API keys for previews. Add Live Mode API keys only
    to Production after enabling and verifying the Razorpay account.
-4. Redeploy after changing environment variables. Configure `nuvyrix.tech` in
+4. Redeploy after changing environment variables. Configure `nuvyrix.online` in
    **Project Settings → Domains** and follow Vercel’s DNS instructions.
 
 Contact inquiries and verified payments are emailed via SMTP and are **not
 stored by the website**. Keep a payment record in the Razorpay dashboard.
+
+## Search and local service area
+
+The canonical site domain is `https://nuvyrix.online`. The public pages
+describe NUVYRIX services for businesses in Kolkata, across West Bengal, and
+throughout India. `/kolkata-web-development` is the Kolkata-focused service
+page. The organization is marked up as a service provider, without publishing
+an unverified office address.
+
+The Google Search Console verification file is served from the site root.
+After deploying, add the `https://nuvyrix.online/` domain property in Search
+Console, verify it using the HTML file, and submit
+`https://nuvyrix.online/sitemap.xml`.
 
 ## Scripts
 

@@ -3,6 +3,22 @@ import { FinalCTA } from "@/components/home/FinalCTA";
 import { Hero } from "@/components/home/Hero";
 import { Process } from "@/components/home/Process";
 import { ServicesPreview } from "@/components/home/ServicesPreview";
+import { createPageMetadata } from "@/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: "Web & App Development in Kolkata",
+  description:
+    "NUVYRIX designs and builds websites, mobile apps, and digital products for businesses in Kolkata, across West Bengal, and throughout India.",
+  path: "/",
+  keywords: [
+    "web development Kolkata",
+    "website developers Kolkata",
+    "mobile app development Kolkata",
+    "UI UX design Kolkata",
+    "web development West Bengal",
+    "freelance web developer Kolkata",
+  ],
+});
 
 export default function HomePage() {
   return (

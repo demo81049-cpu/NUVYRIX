@@ -80,7 +80,7 @@ export default function OpenGraphImage() {
           }}
         >
           <span>{siteConfig.tagline}</span>
-          <span>nuvyrix.tech</span>
+          <span>nuvyrix.online</span>
         </div>
       </div>
     ),

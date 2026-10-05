@@ -8,8 +8,13 @@ import { createPageMetadata } from "@/lib/seo";
 export const metadata = createPageMetadata({
   title: "Portfolio",
   description:
-    "Explore live web and app projects designed and built by NUVYRIX TECHNOLOGIES, including BringBasket, cirKle Market, Vnoras, and PayKash.",
+    "Explore live websites and apps built by NUVYRIX TECHNOLOGIES for businesses in Kolkata, West Bengal, and across India.",
   path: "/portfolio",
+  keywords: [
+    "web development portfolio Kolkata",
+    "app development portfolio West Bengal",
+    "NUVYRIX projects",
+  ],
 });
 
 export default function PortfolioPage() {

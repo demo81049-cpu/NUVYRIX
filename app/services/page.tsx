@@ -1,4 +1,4 @@
-import { Check } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { PageHero } from "@/components/shared/PageHero";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { Blob } from "@/components/ui/Blob";
@@ -6,12 +6,20 @@ import { Card } from "@/components/ui/Card";
 import { Section } from "@/components/layout/Section";
 import { services } from "@/lib/site";
 import { createPageMetadata } from "@/lib/seo";
+import Link from "next/link";
 
 export const metadata = createPageMetadata({
   title: "Web & App Development Services",
   description:
-    "Explore web development, mobile app development, product design, and ongoing launch support from NUVYRIX TECHNOLOGIES.",
+    "Website development, mobile apps, UI/UX design, and launch support for businesses in Kolkata and across West Bengal from NUVYRIX TECHNOLOGIES.",
   path: "/services",
+  keywords: [
+    "web development services Kolkata",
+    "website design Kolkata",
+    "mobile app development West Bengal",
+    "UI UX design Kolkata",
+    "ecommerce website development Kolkata",
+  ],
 });
 
 export default function ServicesPage() {
@@ -64,6 +72,23 @@ export default function ServicesPage() {
             );
           })}
         </div>
+      </Section>
+
+      <Section tone="muted" width="5xl" className="text-center">
+        <h2 className="text-3xl md:text-4xl">
+          Looking for a web developer in Kolkata?
+        </h2>
+        <p className="mx-auto mt-4 max-w-2xl leading-7 text-muted-foreground">
+          Explore how NUVYRIX works with businesses in Kolkata and across West
+          Bengal on websites, apps, and digital products.
+        </p>
+        <Link
+          href="/kolkata-web-development"
+          className="mt-6 inline-flex items-center gap-2 font-bold text-primary hover:gap-3"
+        >
+          Web and app development in Kolkata
+          <ArrowRight size={18} />
+        </Link>
       </Section>
 
       <FinalCTA />

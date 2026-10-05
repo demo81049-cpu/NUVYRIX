@@ -11,13 +11,14 @@ export const siteConfig = {
   fullName: "NUVYRIX TECHNOLOGIES",
   tagline: "Build. Launch. Grow.",
   description:
-    "Freelance web and app development studio. We design, build, and grow digital products that help businesses launch faster and scale with confidence.",
+    "NUVYRIX TECHNOLOGIES designs and builds websites, mobile apps, and digital products for businesses in Kolkata, West Bengal, and across India.",
+  serviceAreas: ["Kolkata", "West Bengal", "India"],
   email: "rishibakshi1234@gmail.com",
   phone: "8617384050",
   phoneDisplay: "+91 86173 84050",
   phoneHref: "tel:+918617384050",
   whatsappHref: "https://wa.me/918617384050",
-  url: "https://nuvyrix.tech",
+  url: "https://nuvyrix.online",
 };
 
 export const navLinks = [

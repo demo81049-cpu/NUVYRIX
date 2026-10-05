@@ -46,8 +46,9 @@ export function Hero() {
           </p>
 
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-            Freelance web and app development—designed with care, shipped with
-            clarity, and built to grow with your business.
+            Freelance web and app development for businesses in Kolkata,
+            across West Bengal, and throughout India—designed with care,
+            shipped with clarity, and built to grow.
           </p>
 
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">

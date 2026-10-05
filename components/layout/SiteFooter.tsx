@@ -33,6 +33,9 @@ export function SiteFooter() {
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/60">
               {siteConfig.description}
             </p>
+            <p className="mt-3 text-sm text-white/50">
+              Serving {siteConfig.serviceAreas.join(", ")}
+            </p>
             <p className="mt-4 font-serif text-lg brand-gradient-text">
               {siteConfig.tagline}
             </p>

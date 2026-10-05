@@ -10,8 +10,13 @@ import { createPageMetadata } from "@/lib/seo";
 export const metadata = createPageMetadata({
   title: "About",
   description:
-    "Meet NUVYRIX TECHNOLOGIES, a freelance web and app development studio focused on thoughtful product design and dependable delivery.",
+    "Meet NUVYRIX TECHNOLOGIES, a freelance web and app development studio serving businesses in Kolkata, West Bengal, and across India.",
   path: "/about",
+  keywords: [
+    "about NUVYRIX Technologies",
+    "freelance web development Kolkata",
+    "app development studio West Bengal",
+  ],
 });
 
 export default function AboutPage() {
