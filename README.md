@@ -1,5 +1,5 @@
 # NUVYRIX TECHNOLOGIES
-
+update
 Freelance web & app development studio site — **Build. Launch. Grow.**
 
 Built with **Next.js**, **Tailwind CSS**, **Razorpay**, and **Hostinger SMTP**.
