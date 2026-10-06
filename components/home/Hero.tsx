@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Blob } from "@/components/ui/Blob";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
+import { RotatingWords } from "@/components/motion/RotatingWords";
 import { projects, siteConfig } from "@/lib/site";
 
 export function Hero() {
@@ -43,8 +44,11 @@ export function Hero() {
           </p>
 
           <h1 data-hero-item className="text-balance font-serif text-4xl font-extrabold leading-[1.1] tracking-tight text-foreground sm:text-5xl md:text-7xl">
-            Websites &amp; apps{" "}
-            <span className="brand-gradient-text">for Kolkata businesses</span>
+            <RotatingWords
+              className="block"
+              words={["Websites & apps", "Online stores", "Mobile apps", "Custom portals", "Booking systems"]}
+            />
+            <span className="brand-gradient-text block">for Kolkata businesses</span>
           </h1>
 
           <p data-hero-item className="mt-5 font-serif text-xl font-semibold brand-gradient-text md:text-2xl">
