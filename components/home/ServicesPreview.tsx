@@ -13,7 +13,7 @@ export function ServicesPreview() {
         className="right-0 top-20 h-64 w-64 opacity-70"
         tone="mixed"
       />
-      <div className="mx-auto max-w-2xl text-center">
+      <div data-reveal className="mx-auto max-w-2xl text-center">
         <p className="text-xs font-bold uppercase tracking-[0.25em] text-primary">
           What we do
         </p>
@@ -26,7 +26,7 @@ export function ServicesPreview() {
         </p>
       </div>
 
-      <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div data-stagger className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
         {services.map((service, i) => {
           const Icon = service.icon;
           return (

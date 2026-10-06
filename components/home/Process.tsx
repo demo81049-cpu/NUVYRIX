@@ -7,7 +7,7 @@ export function Process() {
       width="7xl"
       className="bg-gradient-to-b from-muted/50 via-background to-background"
     >
-      <div className="mx-auto max-w-2xl text-center">
+      <div data-reveal className="mx-auto max-w-2xl text-center">
         <p className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/80 px-4 py-2 text-[11px] font-extrabold uppercase tracking-[0.2em] text-primary shadow-sm">
           <span className="h-1.5 w-1.5 rounded-full bg-primary" />
           Our process
@@ -37,7 +37,7 @@ export function Process() {
           />
         </svg>
 
-        <ol className="relative grid gap-8 before:absolute before:bottom-8 before:left-7 before:top-8 before:border-l before:border-dashed before:border-primary/25 md:grid-cols-4 md:gap-7 md:before:hidden">
+        <ol data-stagger className="relative grid gap-8 before:absolute before:bottom-8 before:left-7 before:top-8 before:border-l before:border-dashed before:border-primary/25 md:grid-cols-4 md:gap-7 md:before:hidden">
           {processSteps.map((step, index) => (
             <li
               key={step.step}

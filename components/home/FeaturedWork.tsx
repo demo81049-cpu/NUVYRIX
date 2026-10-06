@@ -7,7 +7,7 @@ import { projects } from "@/lib/site";
 export function FeaturedWork() {
   return (
     <Section tone="accent" width="7xl">
-      <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+      <div data-reveal className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
         <div className="max-w-xl">
           <p className="text-xs font-bold uppercase tracking-[0.25em] text-secondary">
             Selected work
@@ -27,7 +27,7 @@ export function FeaturedWork() {
         </Link>
       </div>
 
-      <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div data-stagger className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {projects.map((project, i) => (
           <ProjectCard
             key={project.slug}

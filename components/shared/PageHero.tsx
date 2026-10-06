@@ -21,6 +21,7 @@ export function PageHero({ eyebrow, title, description }: PageHeroProps) {
         tone="violet"
       />
       <Container width="4xl" className="relative text-center">
+        <div data-hero-item>
         <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary">
           {eyebrow}
         </p>
@@ -28,6 +29,7 @@ export function PageHero({ eyebrow, title, description }: PageHeroProps) {
         <p className="mx-auto mt-5 max-w-2xl text-lg text-muted-foreground">
           {description}
         </p>
+      </div>
       </Container>
     </section>
   );

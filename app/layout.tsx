@@ -3,6 +3,7 @@ import { Fraunces, Nunito } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { GsapEffects } from "@/components/motion/GsapEffects";
 import { services, siteConfig } from "@/lib/site";
 import "./globals.css";
 
@@ -168,6 +169,7 @@ export default function RootLayout({
             __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
           }}
         />
+        <GsapEffects />
         <SiteHeader />
         <main className="relative z-0 flex-1">{children}</main>
         <SiteFooter />

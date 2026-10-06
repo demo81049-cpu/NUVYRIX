@@ -18,7 +18,8 @@ export function FinalCTA() {
         tone="violet"
       />
 
-      <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/50">
+      <div data-reveal>
+<p className="text-xs font-bold uppercase tracking-[0.3em] text-white/50">
         Ready when you are
       </p>
       <h2 className="mt-4 text-4xl text-white md:text-5xl">
@@ -28,7 +29,8 @@ export function FinalCTA() {
         Tell us about your website or app idea. We’ll reply with a clear next
         step—no pressure, no jargon.
       </p>
-      <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap">
+      </div>
+      <div data-stagger className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap">
         <Button href="/contact" variant="white" size="lg">
           Get in touch
           <ArrowRight size={20} />
