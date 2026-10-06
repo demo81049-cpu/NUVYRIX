@@ -8,7 +8,7 @@ export function SiteFooter() {
   return (
     <footer className="relative z-0 border-t border-white/10 bg-[#05070d] text-white">
       <Container className="py-16 md:py-20">
-        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
+        <div data-stagger className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
             <Link href="/" className="inline-flex items-center gap-3">
               <span className="relative flex h-14 w-14 overflow-hidden rounded-full bg-black ring-1 ring-white/10">

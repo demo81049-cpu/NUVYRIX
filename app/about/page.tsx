@@ -30,8 +30,8 @@ export default function AboutPage() {
           tone="violet"
         />
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          <div className="relative mx-auto w-full max-w-md">
-            <div className="organic-mask relative aspect-square overflow-hidden bg-[#05070d] shadow-[0_10px_40px_-10px_rgba(124,58,237,0.3)] ring-4 ring-white">
+          <div data-reveal-left className="relative mx-auto w-full max-w-md">
+            <div data-image-reveal className="organic-mask relative aspect-square overflow-hidden bg-[#05070d] shadow-[0_10px_40px_-10px_rgba(124,58,237,0.3)] ring-4 ring-white">
               <Image
                 src="/about-team.jpg"
                 alt="Developers collaborating around laptops at a table"
@@ -42,7 +42,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div>
+          <div data-reveal-right>
             <h2 className="text-3xl md:text-4xl">Why NUVYRIX exists</h2>
             <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
               Too many projects stall between a pretty mockup and a working
@@ -60,13 +60,13 @@ export default function AboutPage() {
       </Section>
 
       <Section tone="muted" width="6xl">
-        <div className="mx-auto max-w-2xl text-center">
+        <div data-reveal className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-bold uppercase tracking-[0.25em] text-primary">
             Values
           </p>
           <h2 className="mt-3 text-4xl md:text-5xl">How we show up</h2>
         </div>
-        <div className="mt-14 grid gap-8 md:grid-cols-3">
+        <div data-stagger className="mt-14 grid gap-8 md:grid-cols-3">
           {values.map((value, i) => (
             <Card key={value.title} radiusIndex={i} interactive>
               <h3 className="text-xl font-bold">{value.title}</h3>

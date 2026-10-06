@@ -30,7 +30,7 @@ export default function ServicesPage() {
           className="left-10 top-40 h-72 w-72 opacity-50"
           tone="mixed"
         />
-        <div className="grid gap-8 md:grid-cols-2">
+        <div data-stagger className="grid gap-8 md:grid-cols-2">
           {services.map((service, i) => {
             const Icon = service.icon;
             return (

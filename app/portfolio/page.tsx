@@ -65,7 +65,7 @@ export default function PortfolioPage() {
         width="7xl"
         className="bg-gradient-to-b from-[#f7f9fc] to-white py-16 md:py-24"
       >
-        <div className="mb-8 flex items-end justify-between gap-4 sm:mb-10">
+        <div data-reveal className="mb-8 flex items-end justify-between gap-4 sm:mb-10">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-secondary">
               From idea to impact
@@ -77,6 +77,7 @@ export default function PortfolioPage() {
           </p>
         </div>
         <div
+          data-stagger
           aria-label="Selected portfolio projects"
           className="grid items-stretch gap-6 sm:grid-cols-2 sm:gap-7 lg:gap-8"
         >

@@ -26,6 +26,7 @@ export function Card({
 
   return (
     <div
+      data-tilt={interactive ? "" : undefined}
       className={cn(
         "relative border border-border/50 bg-card p-8 shadow-[0_4px_20px_-2px_rgba(2,132,199,0.12)] transition-all duration-500",
         radius,

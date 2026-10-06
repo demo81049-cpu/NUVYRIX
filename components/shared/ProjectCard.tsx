@@ -18,6 +18,7 @@ export function ProjectCard({
 
   return (
     <a
+      data-tilt
       href={project.url}
       target="_blank"
       rel="noopener noreferrer"

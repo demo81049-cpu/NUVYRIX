@@ -25,7 +25,7 @@ export function PageHero({ eyebrow, title, description }: PageHeroProps) {
         <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary">
           {eyebrow}
         </p>
-        <h1 className="mt-4 text-4xl md:text-6xl">{title}</h1>
+        <h1 data-split className="mt-4 text-4xl md:text-6xl">{title}</h1>
         <p className="mx-auto mt-5 max-w-2xl text-lg text-muted-foreground">
           {description}
         </p>

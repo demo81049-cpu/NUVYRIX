@@ -118,7 +118,7 @@ export default function KolkataWebDevelopmentPage() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div data-stagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (

@@ -28,9 +28,9 @@ export default function PaymentPage() {
           tone="violet"
         />
         <div className="relative grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-          <div>
+          <div data-reveal-left>
             <h2 className="text-3xl">How it works</h2>
-            <ol className="mt-6 space-y-4 text-muted-foreground">
+            <ol data-stagger className="mt-6 space-y-4 text-muted-foreground">
               <li className="rounded-[1.5rem] rounded-tr-[2.5rem] border border-border/50 bg-card/90 p-5 shadow-[0_4px_20px_-2px_rgba(2,132,199,0.08)] backdrop-blur">
                 <span className="font-bold text-primary">1.</span> Enter amount
                 in INR and why you’re paying.
@@ -63,7 +63,9 @@ export default function PaymentPage() {
             </p>
           </div>
 
-          <PaymentForm />
+          <div data-reveal-right>
+            <PaymentForm />
+          </div>
         </div>
       </Section>
     </>

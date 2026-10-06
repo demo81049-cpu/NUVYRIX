@@ -24,14 +24,14 @@ export default function ContactPage() {
 
       <Section width="6xl" className="pt-4 md:pt-8">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-          <div>
+          <div data-reveal-left>
             <h2 className="text-3xl">Let’s talk</h2>
             <p className="mt-4 leading-relaxed text-muted-foreground">
               Websites, mobile apps, redesigns, or ongoing support—if it helps
               you build, launch, and grow, we’re interested.
             </p>
 
-            <div className="mt-10 space-y-5">
+            <div data-stagger className="mt-10 space-y-5">
               <a
                 href={`mailto:${siteConfig.email}`}
                 className="group flex items-center gap-4 rounded-[1.5rem] border border-border/50 bg-card p-5 shadow-[0_4px_20px_-2px_rgba(2,132,199,0.1)] transition-all duration-300 hover:-translate-y-0.5"
@@ -86,7 +86,9 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <ContactForm />
+          <div data-reveal-right>
+            <ContactForm />
+          </div>
         </div>
       </Section>
     </>

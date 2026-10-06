@@ -67,6 +67,7 @@ export function Button({
       return (
         <a
           href={href}
+          data-magnetic
           className={classes}
           {...(isWeb
             ? { target: "_blank", rel: "noopener noreferrer" }
@@ -79,7 +80,7 @@ export function Button({
     }
 
     return (
-      <Link href={href} className={classes} {...rest}>
+      <Link href={href} className={classes} data-magnetic {...rest}>
         {children}
       </Link>
     );
@@ -87,7 +88,7 @@ export function Button({
 
   const buttonProps = props as React.ButtonHTMLAttributes<HTMLButtonElement>;
   return (
-    <button type={buttonProps.type ?? "button"} className={classes} {...buttonProps}>
+    <button type={buttonProps.type ?? "button"} className={classes} data-magnetic {...buttonProps}>
       {children}
     </button>
   );
