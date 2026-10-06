@@ -118,3 +118,44 @@
 .organic-mask {
   border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
 }
+
+::selection {
+  background: rgba(2, 132, 199, 0.2);
+}
+
+/* Subtle dotted grid used behind heroes */
+.bg-dot-grid {
+  background-image: radial-gradient(
+    rgba(15, 23, 42, 0.09) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-blob-drift,
+  .animate-blob-drift-slow {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

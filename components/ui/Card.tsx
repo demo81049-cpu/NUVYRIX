@@ -30,7 +30,7 @@ export function Card({
         "relative border border-border/50 bg-card p-8 shadow-[0_4px_20px_-2px_rgba(2,132,199,0.12)] transition-all duration-500",
         radius,
         interactive &&
-          "hover:-translate-y-1 hover:shadow-[0_20px_40px_-10px_rgba(2,132,199,0.18)]",
+          "hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_20px_40px_-10px_rgba(2,132,199,0.18)]",
         className,
       )}
     >

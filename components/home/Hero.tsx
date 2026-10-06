@@ -19,9 +19,14 @@ export function Hero() {
         tone="violet"
       />
 
+      <div
+        aria-hidden
+        className="bg-dot-grid pointer-events-none absolute inset-0 -z-10"
+      />
+
       <Container width="7xl">
         <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-          <div className="relative mb-8 flex h-36 w-36 items-center justify-center overflow-hidden rounded-[40%_60%_55%_45%/50%_40%_60%_50%] bg-[#05070d] shadow-[0_10px_40px_-10px_rgba(124,58,237,0.35)] ring-4 ring-white md:h-44 md:w-44">
+          <div className="animate-fade-up relative mb-8 flex h-28 w-28 items-center justify-center overflow-hidden rounded-[40%_60%_55%_45%/50%_40%_60%_50%] bg-[#05070d] shadow-[0_10px_40px_-10px_rgba(124,58,237,0.35)] ring-4 ring-white md:h-32 md:w-32">
             <Image
               src="/logo.png"
               alt={`${siteConfig.fullName} logo`}
@@ -32,26 +37,27 @@ export function Hero() {
             />
           </div>
 
-          <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-muted-foreground">
-            NUVYRIX TECHNOLOGIES · KOLKATA &amp; WEST BENGAL
+          <p className="animate-fade-up mb-6 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/80 px-4 py-2 text-[11px] font-extrabold uppercase tracking-[0.2em] text-primary shadow-sm [animation-delay:80ms]">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+            NUVYRIX Technologies · Kolkata &amp; West Bengal
           </p>
 
-          <h1 className="font-serif text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl">
+          <h1 className="animate-fade-up text-balance font-serif text-4xl font-extrabold leading-[1.1] tracking-tight text-foreground [animation-delay:140ms] sm:text-5xl md:text-7xl">
             Websites &amp; apps{" "}
             <span className="brand-gradient-text">for Kolkata businesses</span>
           </h1>
 
-          <p className="mt-4 font-serif text-xl font-semibold brand-gradient-text md:text-2xl">
+          <p className="animate-fade-up mt-5 font-serif text-xl font-semibold brand-gradient-text [animation-delay:200ms] md:text-2xl">
             {siteConfig.tagline}
           </p>
 
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
+          <p className="animate-fade-up mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground [animation-delay:260ms] md:text-xl">
             Freelance web and app development for businesses in Kolkata,
             across West Bengal, and throughout India—designed with care,
             shipped with clarity, and built to grow.
           </p>
 
-          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
+          <div className="animate-fade-up mt-10 flex flex-col items-center gap-4 [animation-delay:320ms] sm:flex-row">
             <Button href="/contact" size="lg">
               Start a project
               <ArrowRight size={20} />
@@ -63,7 +69,7 @@ export function Hero() {
         </div>
 
         <div className="relative mx-auto mt-16 max-w-5xl">
-          <div className="relative h-48 overflow-hidden rounded-[2rem] rounded-tr-[4rem] border-4 border-white shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)] md:h-72 md:-rotate-1">
+          <div className="relative h-48 overflow-hidden rounded-[2rem] rounded-tr-[4rem] border-4 border-white shadow-[0_30px_60px_-20px_rgba(37,99,235,0.35)] md:h-80 md:-rotate-1">
             <Image
               src="/hero-workspace.jpg"
               alt="Developer workspace building digital products"
@@ -75,14 +81,17 @@ export function Hero() {
             <div className="absolute inset-0 bg-gradient-to-t from-[#05070d]/50 to-transparent" />
           </div>
 
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <p className="mt-8 text-center text-xs font-bold uppercase tracking-[0.25em] text-muted-foreground">
+            Recently shipped
+          </p>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
             {projects.map((project) => (
               <a
                 key={project.slug}
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-10 items-center rounded-full border border-border/60 bg-white/80 px-4 text-sm font-semibold text-foreground shadow-sm backdrop-blur transition-all duration-300 hover:scale-105 hover:border-primary/40 hover:text-primary"
+                className="inline-flex h-10 items-center rounded-full border border-border/60 bg-white/80 px-4 text-sm font-semibold text-foreground shadow-sm backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary hover:shadow-soft"
               >
                 {project.title}
               </a>

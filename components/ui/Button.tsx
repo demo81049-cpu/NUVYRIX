@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 const variants = {
   primary:
-    "bg-primary text-primary-foreground shadow-[0_4px_20px_-2px_rgba(2,132,199,0.15)] hover:shadow-[0_6px_24px_-4px_rgba(2,132,199,0.25)]",
+    "brand-gradient text-white shadow-[0_8px_24px_-8px_rgba(37,99,235,0.55)] hover:shadow-[0_12px_30px_-8px_rgba(37,99,235,0.65)] hover:brightness-110",
   outline:
     "border-2 border-secondary bg-transparent text-secondary hover:bg-secondary/10",
   ghost: "bg-transparent text-primary hover:bg-primary/10",
@@ -52,7 +52,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   const classes = cn(
-    "inline-flex items-center justify-center gap-2 rounded-full font-bold transition-all duration-300 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50",
+    "inline-flex items-center justify-center gap-2 rounded-full font-bold transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50",
     variants[variant],
     sizes[size],
     className,
