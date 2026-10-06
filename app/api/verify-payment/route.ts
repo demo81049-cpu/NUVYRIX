@@ -1,7 +1,5 @@
 import { createHmac, timingSafeEqual } from "crypto";
 import { NextResponse } from "next/server";
-import { getDb } from "@/lib/db";
-import { sendPaymentNotification } from "@/lib/mail";
 import { getRazorpayClient } from "@/lib/razorpay";
 
 type VerifyBody = {
@@ -81,65 +79,12 @@ export async function POST(request: Request) {
       );
     }
 
-    const amountPaise = Number(payment.amount);
-    const currency = payment.currency;
-    const reason = String(order.notes?.reason || "Payment").trim();
-    const name = String(order.notes?.payer_name || "").trim();
-    const email = String(order.notes?.payer_email || "").trim();
-    const phone = String(order.notes?.payer_phone || "").trim();
-    const amountInr = (amountPaise / 100).toFixed(2);
-
-    try {
-      const db = await getDb();
-      await db.collection("payment_records").updateOne(
-        { orderId },
-        {
-          $set: {
-            paymentId,
-            amountPaise,
-            currency,
-            reason: reason || "Payment",
-            status: "captured",
-            updatedAt: new Date(),
-          },
-          $setOnInsert: { createdAt: new Date() },
-        },
-        { upsert: true },
-      );
-    } catch (databaseError) {
-      console.error("verified payment database update failed:", databaseError);
-      return NextResponse.json(
-        {
-          success: false,
-          error:
-            "Payment was captured, but we couldn’t save its record. Please contact us with your payment ID.",
-        },
-        { status: 503 },
-      );
-    }
-
-    let emailSent = false;
-    try {
-      await sendPaymentNotification({
-        amountInr,
-        currency,
-        reason: reason || "Payment",
-        orderId,
-        paymentId,
-        name,
-        email,
-        phone,
-      });
-      emailSent = true;
-    } catch (mailError) {
-      console.error("payment email failed:", mailError);
-    }
-
     return NextResponse.json({
       success: true,
       order_id: orderId,
       payment_id: paymentId,
-      email_sent: emailSent,
+      amount: payment.amount,
+      currency: payment.currency,
     });
   } catch (error) {
     console.error("verify-payment error:", error);

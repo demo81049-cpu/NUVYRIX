@@ -24,7 +24,6 @@ type Status =
       orderId: string;
       amountLabel: string;
       reason: string;
-      emailSent: boolean;
     };
 
 function loadCheckoutScript(): Promise<void> {
@@ -103,10 +102,6 @@ export function PaymentForm() {
         body: JSON.stringify({
           amount: amountPaise,
           currency: "INR",
-          reason: reason.trim(),
-          name: name.trim(),
-          email: email.trim(),
-          phone: phone.trim(),
         }),
       });
 
@@ -142,9 +137,6 @@ export function PaymentForm() {
           email: payerEmail || undefined,
           contact: payerPhone || undefined,
         },
-        notes: {
-          reason: paymentReason,
-        },
         theme: { color: "#0284C7" },
         modal: {
           ondismiss: () => {
@@ -177,9 +169,11 @@ export function PaymentForm() {
               type: "success",
               paymentId: response.razorpay_payment_id,
               orderId: response.razorpay_order_id,
-              amountLabel: `₹${(amountPaise / 100).toFixed(2)}`,
+              amountLabel: new Intl.NumberFormat("en-IN", {
+                style: "currency",
+                currency: verifyData.currency,
+              }).format(Number(verifyData.amount) / 100),
               reason: paymentReason,
-              emailSent: Boolean(verifyData.email_sent),
             });
           } catch (err) {
             setStatus({
@@ -318,9 +312,15 @@ export function PaymentForm() {
           )}
 
           <p className="mt-5 text-sm text-muted-foreground">
-            {status.emailSent
-              ? "Our team has been notified by email."
-              : `Payment is verified, but our email notification could not be sent. Please contact us at ${siteConfig.email} with your payment ID.`}
+            Your payment was verified by Razorpay. For a receipt or help,
+            contact us at{" "}
+            <a
+              href={`mailto:${siteConfig.email}`}
+              className="font-semibold text-primary underline-offset-2 hover:underline"
+            >
+              {siteConfig.email}
+            </a>
+            .
           </p>
 
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">

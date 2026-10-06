@@ -23,17 +23,7 @@ export async function getDb(): Promise<Db> {
     globalForMongo.mongoDbPromise = globalForMongo.mongoClientPromise
       .then(async (connectedClient) => {
         const db = connectedClient.db(process.env.MONGODB_DB_NAME || "nuvyrix");
-        await Promise.all([
-          db.collection("contact_inquiries").createIndex({ createdAt: -1 }),
-          db.collection("payment_records").createIndex(
-            { orderId: 1 },
-            { unique: true },
-          ),
-          db.collection("payment_records").createIndex(
-            { paymentId: 1 },
-            { unique: true, sparse: true },
-          ),
-        ]);
+        await db.collection("contact_inquiries").createIndex({ createdAt: -1 });
         return db;
       })
       .catch((error: unknown) => {

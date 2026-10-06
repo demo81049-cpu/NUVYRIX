@@ -25,17 +25,6 @@ type Inquiry = {
   createdAt: Date;
 };
 
-type PaymentRecord = {
-  orderId: string;
-  paymentId?: string;
-  amountPaise: number;
-  currency: string;
-  reason: string;
-  status: "created" | "authorized" | "captured" | "failed";
-  createdAt: Date;
-  updatedAt: Date;
-};
-
 type InquiryDocument = Omit<Inquiry, "id"> & { _id: ObjectId };
 
 function formatDate(value: Date) {
@@ -67,28 +56,18 @@ export default async function AdminPage() {
   }
 
   let inquiries: Inquiry[];
-  let payments: PaymentRecord[];
   try {
     const db = await getDb();
-    const [inquiryDocuments, paymentDocuments] = await Promise.all([
-      db
-        .collection<InquiryDocument>("contact_inquiries")
-        .find()
-        .sort({ createdAt: -1 })
-        .limit(100)
-        .toArray(),
-      db
-        .collection<PaymentRecord>("payment_records")
-        .find()
-        .sort({ createdAt: -1 })
-        .limit(100)
-        .toArray(),
-    ]);
+    const inquiryDocuments = await db
+      .collection<InquiryDocument>("contact_inquiries")
+      .find()
+      .sort({ createdAt: -1 })
+      .limit(100)
+      .toArray();
     inquiries = inquiryDocuments.map(({ _id, ...inquiry }) => ({
       ...inquiry,
       id: _id.toString(),
     }));
-    payments = paymentDocuments;
   } catch (error) {
     console.error("admin dashboard database query failed:", error);
     return (
@@ -114,11 +93,9 @@ export default async function AdminPage() {
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
             Private admin
           </p>
-          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">
-            Inquiries &amp; payments
-          </h1>
+          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Inquiries</h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Showing the latest 100 records in each section.
+            Showing the latest 100 contact inquiries.
           </p>
         </div>
         <AdminSignOut />
@@ -175,60 +152,6 @@ export default async function AdminPage() {
         )}
       </section>
 
-      <section className="mt-14">
-        <h2 className="text-2xl font-bold">Payment records</h2>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {payments.length} recent{" "}
-          {payments.length === 1 ? "payment" : "payments"}
-        </p>
-
-        {payments.length === 0 ? (
-          <p className="mt-5 rounded-2xl border border-border/60 bg-card p-6 text-muted-foreground">
-            No payment orders have been created yet.
-          </p>
-        ) : (
-          <div className="mt-5 overflow-x-auto rounded-2xl border border-border/60 bg-card">
-            <table className="w-full min-w-[760px] border-collapse text-left text-sm">
-              <thead className="bg-muted/60 text-xs uppercase tracking-wide text-muted-foreground">
-                <tr>
-                  <th className="px-5 py-4 font-semibold">Created</th>
-                  <th className="px-5 py-4 font-semibold">Amount</th>
-                  <th className="px-5 py-4 font-semibold">Reason</th>
-                  <th className="px-5 py-4 font-semibold">Status</th>
-                  <th className="px-5 py-4 font-semibold">Order / Payment ID</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border/60">
-                {payments.map((payment) => (
-                  <tr key={payment.orderId} className="align-top">
-                    <td className="whitespace-nowrap px-5 py-4 text-muted-foreground">
-                      {formatDate(payment.createdAt)} IST
-                    </td>
-                    <td className="whitespace-nowrap px-5 py-4 font-semibold">
-                      {payment.currency}{" "}
-                      {(payment.amountPaise / 100).toFixed(2)}
-                    </td>
-                    <td className="max-w-xs px-5 py-4">{payment.reason}</td>
-                    <td className="px-5 py-4">
-                      <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-bold capitalize text-primary">
-                        {payment.status}
-                      </span>
-                    </td>
-                    <td className="space-y-1 px-5 py-4 font-mono text-xs">
-                      <p className="break-all">{payment.orderId}</p>
-                      {payment.paymentId && (
-                        <p className="break-all text-muted-foreground">
-                          {payment.paymentId}
-                        </p>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </section>
     </main>
   );
 }

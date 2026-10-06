@@ -53,7 +53,7 @@ export function AdminLogin() {
         </p>
         <h1 className="mt-2 text-3xl font-bold">Admin sign in</h1>
         <p className="mt-3 leading-6 text-muted-foreground">
-          Sign in to review contact inquiries and payment records.
+          Sign in to review contact inquiries.
         </p>
 
         <label className="mt-7 block space-y-2">

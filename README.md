@@ -36,7 +36,6 @@ them with `vercel env pull .env.development.local`.
 | `MONGODB_DB_NAME` | MongoDB database name (defaults to `nuvyrix`) |
 | `RAZORPAY_KEY_ID` | Razorpay API Key ID; the server returns it to Checkout |
 | `RAZORPAY_KEY_SECRET` | Server-only Razorpay API Key Secret |
-| `RAZORPAY_WEBHOOK_SECRET` | Server-only signing secret configured for the webhook endpoint |
 | `ADMIN_USERNAME` | Private admin login username (at least 3 characters) |
 | `ADMIN_PASSWORD` | Private admin login password (at least 16 characters) |
 | `ADMIN_SESSION_SECRET` | Random signing secret for admin sessions (at least 32 characters) |
@@ -56,30 +55,21 @@ the browser for Razorpay Checkout.
 Set `ADMIN_USERNAME`, `ADMIN_PASSWORD`, and a unique random
 `ADMIN_SESSION_SECRET` in Vercel. Use a password manager to generate the
 password and session secret; do not commit or share them. Visit `/admin` to
-review the latest contact inquiries and payment records. The login has no
-public signup, and the signed session cookie is HTTP-only, secure in
-production, and expires after eight hours.
+review the latest contact inquiries. The login has no public signup, and the
+signed session cookie is HTTP-only, secure in production, and expires after
+eight hours.
 
 ### MongoDB Atlas setup
 
 Create a database user with a strong password and permission to read and write
 the application's database. Add `MONGODB_URI` to Vercel without committing or
 sharing the connection string, and set `MONGODB_DB_NAME` to `nuvyrix` (or your
-chosen database name). The application creates the collections and required
-indexes on first database use. In Atlas, allow network access from the
+chosen database name). The application creates the contact collection and its
+index on first database use. In Atlas, allow network access from the
 deployment; prefer restricting it to known static egress IPs where available.
 If the hosting plan does not provide static egress, understand the exposure
 before allowing `0.0.0.0/0`, and protect access with a dedicated least-privilege
 database user.
-
-### Razorpay webhook setup
-
-Add a Razorpay webhook pointing to
-`https://nuvyrix.online/api/razorpay-webhook`, subscribe to `payment.authorized`,
-`payment.captured`, `payment.failed`, and `order.paid`, then save the webhook
-secret as `RAZORPAY_WEBHOOK_SECRET` in Vercel. Set the same secret locally when
-testing webhooks. The endpoint verifies Razorpay's signature and deduplicates
-events before updating payment status.
 
 ## Deploy to Vercel
 
@@ -95,10 +85,10 @@ events before updating payment status.
 4. Redeploy after changing environment variables. Configure `nuvyrix.online` in
    **Project Settings → Domains** and follow Vercel’s DNS instructions.
 
-Contact inquiries are stored in MongoDB and emailed via SMTP. Payment order
-IDs, payment IDs, amounts, currency, reasons, and verified status are stored
-in MongoDB; payer contact details remain in Razorpay. Payment notifications
-continue to be emailed via SMTP.
+Contact inquiries are stored in MongoDB and emailed via SMTP. The app does not
+save or email payment details; payment processing and its required transaction
+records are handled by Razorpay. Payment verification is performed with
+Razorpay directly.
 
 ## Search and local service area
 
