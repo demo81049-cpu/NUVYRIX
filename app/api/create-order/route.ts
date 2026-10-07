@@ -4,7 +4,17 @@ import { getRazorpayClient, getRazorpayKeyId } from "@/lib/razorpay";
 type CreateOrderBody = {
   amount?: number;
   currency?: string;
+  name?: string;
+  email?: string;
+  phone?: string;
+  reason?: string;
 };
+
+const clean = (value: unknown, max: number) =>
+  String(value ?? "")
+    .replace(/[\r\n]+/g, " ")
+    .trim()
+    .slice(0, max);
 
 export async function POST(request: Request) {
   try {
@@ -37,6 +47,14 @@ export async function POST(request: Request) {
     const order = await razorpay.orders.create({
       amount: amountPaise,
       currency,
+      // Payer details ride on the Razorpay order (not our own storage) so the
+      // verified-payment emails can include them.
+      notes: {
+        name: clean(body.name, 120),
+        email: clean(body.email, 254),
+        phone: clean(body.phone, 30),
+        reason: clean(body.reason, 250),
+      },
     });
 
     return NextResponse.json({

@@ -38,7 +38,7 @@ export function ContactForm() {
         throw new Error(payload.error || "Could not send your message.");
       }
       form.reset();
-      setStatus({ type: "success", emailSent: Boolean(payload.email_sent) });
+      setStatus({ type: "success", emailSent: Boolean(payload.confirmation_sent) });
     } catch (err) {
       setStatus({
         type: "error",
@@ -60,14 +60,19 @@ export function ContactForm() {
           <p className="mt-3 text-muted-foreground">
             {status.emailSent ? (
               <>
-                Thanks — your inquiry was emailed to{" "}
+                Thanks — we’ve received your message and sent a confirmation to
+                your inbox. We’ll reply within 1–2 business days.
+              </>
+            ) : (
+              <>
+                Thanks — we’ve received your message and will reply within 1–2
+                business days. (We couldn’t send a confirmation email, so keep
+                an eye on{" "}
                 <span className="font-semibold text-foreground">
                   {siteConfig.email}
                 </span>
-                . We’ll reply soon.
+                .)
               </>
-            ) : (
-              <>Thanks — your inquiry was saved successfully. We’ll reply soon.</>
             )}
           </p>
           <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">

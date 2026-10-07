@@ -3,6 +3,7 @@ import { FinalCTA } from "@/components/home/FinalCTA";
 import { Hero } from "@/components/home/Hero";
 import { Process } from "@/components/home/Process";
 import { ServicesPreview } from "@/components/home/ServicesPreview";
+import { TechMarquee } from "@/components/home/TechMarquee";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
@@ -16,6 +17,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <TechMarquee />
       <ServicesPreview />
       <Process />
       <FeaturedWork />

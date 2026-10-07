@@ -1,7 +1,7 @@
 import { createHmac, timingSafeEqual } from "crypto";
 import { NextResponse } from "next/server";
 import { getRazorpayClient } from "@/lib/razorpay";
-import { sendPaymentNotification } from "@/lib/mail";
+import { sendPaymentEmails } from "@/lib/mail";
 
 type VerifyBody = {
   razorpay_order_id?: string;
@@ -80,16 +80,21 @@ export async function POST(request: Request) {
       );
     }
 
+    // Emails to the team and the payer; the payment is already verified, so
+    // a mail failure must not fail the response.
+    const notes = (order.notes ?? {}) as Record<string, unknown>;
+    const note = (key: string) => String(notes[key] ?? "").trim() || undefined;
     try {
-      await sendPaymentNotification({
+      await sendPaymentEmails({
         orderId,
         paymentId,
         amount: Number(payment.amount),
         currency: payment.currency,
         method: payment.method,
-        payerEmail: payment.email,
-        payerContact: payment.contact ? String(payment.contact) : undefined,
-        notes: order.notes as Record<string, unknown> | undefined,
+        payerName: note("name"),
+        payerEmail: note("email") ?? (payment.email || undefined),
+        payerPhone: note("phone") ?? (payment.contact ? String(payment.contact) : undefined),
+        reason: note("reason"),
       });
     } catch (mailError) {
       console.error("payment email failed:", mailError);

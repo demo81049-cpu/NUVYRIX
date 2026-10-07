@@ -213,6 +213,8 @@ export function GsapEffects() {
               const py = (e.clientY - r.top) / r.height - 0.5;
               ry(px * 8);
               rx(-py * 8);
+              el.style.setProperty("--mx", `${(px + 0.5) * 100}%`);
+              el.style.setProperty("--my", `${(py + 0.5) * 100}%`);
             };
             const enter = () => {
               gsap.set(el, { transformPerspective: 900, transition: "box-shadow .5s, translate .5s, border-color .5s" });

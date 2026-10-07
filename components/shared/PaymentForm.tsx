@@ -102,6 +102,10 @@ export function PaymentForm() {
         body: JSON.stringify({
           amount: amountPaise,
           currency: "INR",
+          name: name.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
+          reason: reason.trim(),
         }),
       });
 

@@ -23,7 +23,7 @@ export function ProjectCard({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "group block overflow-hidden border border-border/50 bg-card shadow-[0_4px_20px_-2px_rgba(2,132,199,0.12)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_40px_-10px_rgba(2,132,199,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2",
+        "group relative block overflow-hidden border border-border/50 bg-card shadow-[0_4px_20px_-2px_rgba(2,132,199,0.12)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_40px_-10px_rgba(2,132,199,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2",
         isHome && "hover:rotate-1",
         index % 3 === 0 && "rounded-[2rem] rounded-tr-[4rem]",
         index % 3 === 1 && "rounded-[2rem] rounded-bl-[5rem]",

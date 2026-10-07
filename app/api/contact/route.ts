@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { getDatabaseErrorMessage, getDb } from "@/lib/db";
-import { sendContactNotification } from "@/lib/mail";
+import { sendContactEmails } from "@/lib/mail";
 
 type ContactBody = {
   name?: string;
@@ -37,49 +36,26 @@ export async function POST(request: Request) {
       );
     }
 
+    // Nothing is stored: the email to the team is the record of the inquiry.
     try {
-      const db = await getDb();
-      await db.collection("contact_inquiries").insertOne({
+      const { confirmationSent } = await sendContactEmails({
         name,
         email,
-        projectType: type,
+        type,
         message,
-        createdAt: new Date(),
       });
-    } catch (databaseError) {
-      console.error("contact database insert failed:", {
-        name:
-          databaseError instanceof Error
-            ? databaseError.name
-            : "UnknownDatabaseError",
-        code:
-          typeof databaseError === "object" &&
-          databaseError !== null &&
-          "code" in databaseError
-            ? databaseError.code
-            : undefined,
-      });
+      return NextResponse.json({ success: true, confirmation_sent: confirmationSent });
+    } catch (mailError) {
+      console.error("contact email failed:", mailError);
       return NextResponse.json(
         {
           success: false,
-          error: getDatabaseErrorMessage(databaseError),
+          error:
+            "We couldn't send your message right now. Please try again in a moment.",
         },
         { status: 503 },
       );
     }
-
-    let emailSent = false;
-    try {
-      await sendContactNotification({ name, email, type, message });
-      emailSent = true;
-    } catch (mailError) {
-      console.error("contact email failed:", mailError);
-    }
-
-    return NextResponse.json({
-      success: true,
-      email_sent: emailSent,
-    });
   } catch (error) {
     console.error("contact submit error:", error);
     return NextResponse.json(
