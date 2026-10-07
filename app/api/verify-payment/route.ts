@@ -1,6 +1,7 @@
 import { createHmac, timingSafeEqual } from "crypto";
 import { NextResponse } from "next/server";
 import { getRazorpayClient } from "@/lib/razorpay";
+import { sendPaymentNotification } from "@/lib/mail";
 
 type VerifyBody = {
   razorpay_order_id?: string;
@@ -77,6 +78,21 @@ export async function POST(request: Request) {
         { success: false, error: "Payment amount or currency does not match." },
         { status: 400 },
       );
+    }
+
+    try {
+      await sendPaymentNotification({
+        orderId,
+        paymentId,
+        amount: Number(payment.amount),
+        currency: payment.currency,
+        method: payment.method,
+        payerEmail: payment.email,
+        payerContact: payment.contact ? String(payment.contact) : undefined,
+        notes: order.notes as Record<string, unknown> | undefined,
+      });
+    } catch (mailError) {
+      console.error("payment email failed:", mailError);
     }
 
     return NextResponse.json({

@@ -92,3 +92,59 @@ function escapeHtml(value: string) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;");
 }
+
+export async function sendPaymentNotification(data: {
+  orderId: string;
+  paymentId: string;
+  amount: number; // paise
+  currency: string;
+  method?: string;
+  payerEmail?: string;
+  payerContact?: string;
+  notes?: Record<string, unknown>;
+}) {
+  const amount = (data.amount / 100).toLocaleString("en-IN", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+  const rows: [string, string][] = [
+    ["Amount", `${data.currency} ${amount}`],
+    ["Payment ID", data.paymentId],
+    ["Order ID", data.orderId],
+  ];
+  if (data.method) rows.push(["Method", data.method]);
+  if (data.payerEmail) rows.push(["Payer email", data.payerEmail]);
+  if (data.payerContact) rows.push(["Payer phone", data.payerContact]);
+  for (const [key, value] of Object.entries(data.notes ?? {})) {
+    if (value !== undefined && value !== null && String(value).trim()) {
+      rows.push([key, String(value)]);
+    }
+  }
+
+  const text = [
+    "Payment received on NUVYRIX.",
+    "",
+    ...rows.map(([k, v]) => `${k}: ${v}`),
+  ].join("\n");
+
+  const html = `
+    <div style="font-family:Arial,sans-serif;line-height:1.5;color:#0f172a">
+      <h2 style="margin:0 0 12px">Payment received</h2>
+      <table style="border-collapse:collapse;width:100%;max-width:560px">
+        ${rows
+          .map(
+            ([k, v]) =>
+              `<tr><td style="padding:8px 0;color:#64748b">${escapeHtml(k)}</td><td style="padding:8px 0;font-weight:700">${escapeHtml(v)}</td></tr>`,
+          )
+          .join("")}
+      </table>
+    </div>
+  `;
+
+  return sendMail({
+    subject: `Payment received · ${data.currency} ${amount}`,
+    text,
+    html,
+    replyTo: data.payerEmail,
+  });
+}
