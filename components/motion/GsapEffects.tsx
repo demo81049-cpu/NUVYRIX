@@ -39,7 +39,9 @@ export function GsapEffects() {
         if (hero.length) {
           gsap.from(hero, {
             y: 28,
-            opacity: 0,
+            // Headline/intro stay visible (slide only) so they count for LCP.
+            opacity: (_: number, el: HTMLElement) =>
+              el.dataset.heroItem === "lcp" ? 1 : 0,
             duration: 0.9,
             ease: "power3.out",
             ...settle,

@@ -46,12 +46,20 @@ export async function POST(request: Request) {
       });
       return NextResponse.json({ success: true, confirmation_sent: confirmationSent });
     } catch (mailError) {
-      console.error("contact email failed:", mailError);
+      const notConfigured =
+        mailError instanceof Error && mailError.message === "SMTP is not configured";
+      console.error(
+        notConfigured
+          ? "contact email failed: SMTP_HOST / SMTP_USER / SMTP_PASS are not set on this deployment"
+          : "contact email failed:",
+        notConfigured ? "" : mailError,
+      );
       return NextResponse.json(
         {
           success: false,
+          code: notConfigured ? "smtp_not_configured" : "smtp_failed",
           error:
-            "We couldn't send your message right now. Please try again in a moment.",
+            "We couldn't send your message right now. Please email us directly and we'll reply soon.",
         },
         { status: 503 },
       );

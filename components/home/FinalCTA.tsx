@@ -19,7 +19,7 @@ export function FinalCTA() {
       />
 
       <div data-reveal>
-<p className="text-xs font-bold uppercase tracking-[0.3em] text-white/50">
+<p className="text-xs font-bold uppercase tracking-[0.3em] text-white/70">
         Ready when you are
       </p>
       <h2 className="mt-4 text-4xl text-white md:text-5xl">

@@ -51,7 +51,7 @@ export function Hero() {
           </p>
 
           <h1
-            data-hero-item
+            data-hero-item="lcp"
             className="text-balance font-serif text-4xl font-extrabold leading-[1.08] tracking-tight text-white drop-shadow-[0_4px_30px_rgba(5,7,13,0.8)] sm:text-5xl md:text-7xl"
           >
             <RotatingWords
@@ -75,7 +75,7 @@ export function Hero() {
           </p>
 
           <p
-            data-hero-item
+            data-hero-item="lcp"
             className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-white/65 md:text-xl"
           >
             Freelance web and app development for businesses in Kolkata, across
@@ -121,7 +121,7 @@ export function Hero() {
           </div>
           </div>
 
-          <p className="mt-10 text-center text-xs font-bold uppercase tracking-[0.25em] text-white/45">
+          <p className="mt-10 text-center text-xs font-bold uppercase tracking-[0.25em] text-white/70">
             Recently shipped
           </p>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-3">

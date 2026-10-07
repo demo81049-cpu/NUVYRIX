@@ -129,7 +129,7 @@ export default function KolkataWebDevelopmentPage() {
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
                   <Icon size={23} aria-hidden="true" />
                 </span>
-                <p className="mt-5 text-[10px] font-bold uppercase tracking-[0.18em] text-primary/70">
+                <p className="mt-5 text-[10px] font-bold uppercase tracking-[0.18em] text-primary">
                   Service 0{index + 1}
                 </p>
                 <h3 className="mt-1.5 text-xl font-bold">{service.title}</h3>

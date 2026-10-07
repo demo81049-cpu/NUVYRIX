@@ -380,7 +380,7 @@ export function Process() {
                   </span>
                 </div>
                 <div className="p-6">
-                  <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-primary/70">
+                  <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-primary">
                     Step {step.step}
                   </p>
                   <h3 className="mt-1.5 text-2xl font-bold transition-colors group-hover:text-primary">

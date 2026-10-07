@@ -15,9 +15,10 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-4 z-40 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border border-border/50 bg-white/70 px-3 py-2 shadow-[0_4px_20px_-2px_rgba(2,132,199,0.12)] backdrop-blur-md sm:px-4">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border border-border/50 bg-white/90 px-3 py-2 shadow-[0_4px_20px_-2px_rgba(2,132,199,0.12)] backdrop-blur-md sm:px-4">
         <Link
           href="/"
+          aria-label={`${siteConfig.fullName} home`}
           className="flex items-center gap-3 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
           onClick={() => setOpen(false)}
         >

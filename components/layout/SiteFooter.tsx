@@ -25,7 +25,7 @@ export function SiteFooter() {
                   {siteConfig.name.slice(0, -1)}
                   <span className="brand-gradient-text">X</span>
                 </span>
-                <span className="text-xs font-semibold uppercase tracking-[0.25em] text-white/50">
+                <span className="text-xs font-semibold uppercase tracking-[0.25em] text-white/70">
                   Technologies
                 </span>
               </span>
@@ -33,7 +33,7 @@ export function SiteFooter() {
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/60">
               {siteConfig.description}
             </p>
-            <p className="mt-3 text-sm text-white/50">
+            <p className="mt-3 text-sm text-white/70">
               Serving {siteConfig.serviceAreas.join(", ")}
             </p>
             <p className="mt-4 font-serif text-lg brand-gradient-text">
@@ -42,7 +42,7 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/40">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/65">
               Explore
             </p>
             <ul className="mt-4 space-y-2">
@@ -60,7 +60,7 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/40">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/65">
               Connect
             </p>
             <a
@@ -96,7 +96,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-2 border-t border-white/10 pt-8 text-sm text-white/40 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-2 border-t border-white/10 pt-8 text-sm text-white/65 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} {siteConfig.fullName}. All rights
             reserved.
