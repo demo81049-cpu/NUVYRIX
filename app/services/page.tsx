@@ -20,7 +20,8 @@ export default function ServicesPage() {
     <>
       <PageHero
         eyebrow="Services"
-        title="Web, app & product development"
+        title="Web, app &"
+        highlight="product development"
         description="Whether you’re launching a marketing site or a full product, we cover design, engineering, and the growth that comes after."
       />
 
@@ -40,23 +41,28 @@ export default function ServicesPage() {
                 radiusIndex={i}
                 className="group"
               >
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
-                  <Icon size={28} />
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute right-8 top-6 font-serif text-6xl font-bold text-foreground/[0.06] transition-colors duration-500 group-hover:text-primary/15"
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="brand-gradient flex h-14 w-14 items-center justify-center rounded-2xl text-white shadow-[0_10px_30px_-8px_rgba(37,99,235,0.6)] transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110">
+                  <Icon size={26} />
                 </div>
                 <h2 className="mt-6 text-2xl font-bold">{service.title}</h2>
                 <p className="mt-3 leading-relaxed text-muted-foreground">
                   {service.description}
                 </p>
-                <ul className="mt-6 space-y-3">
+                <ul className="mt-6 space-y-3 border-t border-border/60 pt-6">
                   {service.points.map((point) => (
                     <li
                       key={point}
                       className="flex items-start gap-3 text-sm text-foreground/80"
                     >
-                      <Check
-                        size={20}
-                        className="mt-0.5 shrink-0 text-primary"
-                      />
+                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                        <Check size={13} strokeWidth={3} />
+                      </span>
                       {point}
                     </li>
                   ))}

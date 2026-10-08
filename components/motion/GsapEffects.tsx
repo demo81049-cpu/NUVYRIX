@@ -92,6 +92,24 @@ export function GsapEffects() {
           );
         });
 
+        // Numbers count up from zero when they scroll into view.
+        gsap.utils.toArray<HTMLElement>("[data-count]").forEach((el) => {
+          const target = Number(el.dataset.count);
+          const counter = { v: 0 };
+          gsap.to(counter, {
+            v: target,
+            duration: 1.6,
+            ease: "power2.out",
+            scrollTrigger: { trigger: el, start: "top 90%", once: true },
+            onStart: () => {
+              el.textContent = "0";
+            },
+            onUpdate: () => {
+              el.textContent = String(Math.round(counter.v));
+            },
+          });
+        });
+
         // Headline words rise out of a mask.
         const splits: [HTMLElement, string][] = [];
         gsap.utils.toArray<HTMLElement>("[data-split]").forEach((el) => {

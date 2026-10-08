@@ -1,36 +1,56 @@
-import { Blob } from "@/components/ui/Blob";
 import { Container } from "@/components/layout/Container";
+import { DarkHero } from "@/components/shared/DarkHero";
 
 type PageHeroProps = {
   eyebrow: string;
   title: string;
   description: string;
+  /** Optional words appended to the title in the brand gradient. */
+  highlight?: string;
+  children?: React.ReactNode;
 };
 
-export function PageHero({ eyebrow, title, description }: PageHeroProps) {
+export function PageHero({
+  eyebrow,
+  title,
+  description,
+  highlight,
+  children,
+}: PageHeroProps) {
   return (
-    <section className="relative overflow-hidden pb-12 pt-16 md:pb-16 md:pt-24">
-      <Blob
-        shapeIndex={0}
-        className="left-[-8%] top-0 h-56 w-56 md:h-80 md:w-80"
-        tone="cyan"
-      />
-      <Blob
-        shapeIndex={2}
-        className="right-[-5%] top-20 h-48 w-48 md:h-72 md:w-72"
-        tone="violet"
-      />
-      <Container width="4xl" className="relative text-center">
-        <div data-hero-item>
-        <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary">
+    <DarkHero>
+      <Container width="4xl" className="text-center">
+        <p
+          data-hero-item
+          className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[11px] font-extrabold uppercase tracking-[0.2em] text-sky-200 backdrop-blur-md"
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-sky-300 shadow-[0_0_10px_2px_rgba(125,211,252,0.7)]" />
           {eyebrow}
         </p>
-        <h1 data-split className="mt-4 text-4xl md:text-6xl">{title}</h1>
-        <p className="mx-auto mt-5 max-w-2xl text-lg text-muted-foreground">
+        <h1
+          data-hero-item="lcp"
+          className="mt-6 text-balance text-4xl leading-[1.08] text-white drop-shadow-[0_4px_30px_rgba(5,7,13,0.8)] md:text-6xl"
+        >
+          {title}
+          {highlight && (
+            <>
+              {" "}
+              <span className="hero-gradient-text">{highlight}</span>
+            </>
+          )}
+        </h1>
+        <p
+          data-hero-item="lcp"
+          className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-white/70"
+        >
           {description}
         </p>
-      </div>
+        {children && (
+          <div data-hero-item className="mt-9">
+            {children}
+          </div>
+        )}
       </Container>
-    </section>
+    </DarkHero>
   );
 }

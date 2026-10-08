@@ -17,7 +17,8 @@ export default function PaymentPage() {
     <>
       <PageHero
         eyebrow="Payments"
-        title="Pay securely"
+        title="Pay"
+        highlight="securely"
         description="Enter the amount and a short reason for payment. You’ll complete checkout in Razorpay’s secure modal."
       />
 

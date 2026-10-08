@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { Container } from "@/components/layout/Container";
+import { DarkHero } from "@/components/shared/DarkHero";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { Section } from "@/components/layout/Section";
+import { StatsBand } from "@/components/shared/StatsBand";
 import { Button } from "@/components/ui/Button";
 import { services, siteConfig } from "@/lib/site";
 import { createPageMetadata } from "@/lib/seo";
@@ -68,41 +70,54 @@ export default function KolkataWebDevelopmentPage() {
         }}
       />
 
-      <section className="relative isolate overflow-hidden border-b border-slate-200/70 bg-gradient-to-b from-sky-50 via-white to-[#f7f9fc] py-20 md:py-28">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -left-40 top-0 -z-10 h-80 w-80 rounded-full bg-sky-300/30 blur-[100px]"
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -right-32 top-8 -z-10 h-80 w-80 rounded-full bg-violet-300/25 blur-[110px]"
-        />
-        <Container width="5xl" className="relative text-center">
-          <p className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/80 px-4 py-2 text-[11px] font-extrabold uppercase tracking-[0.2em] text-primary shadow-sm backdrop-blur">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+      <DarkHero>
+        <Container width="5xl" className="text-center">
+          <p
+            data-hero-item
+            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[11px] font-extrabold uppercase tracking-[0.2em] text-sky-200 backdrop-blur-md"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-sky-300 shadow-[0_0_10px_2px_rgba(125,211,252,0.7)]" />
             Kolkata · West Bengal · India
           </p>
-          <h1 className="mt-6 text-4xl leading-tight sm:text-5xl md:text-6xl">
+          <h1
+            data-hero-item="lcp"
+            className="mt-6 text-balance text-4xl leading-tight text-white sm:text-5xl md:text-6xl"
+          >
             Web &amp; app development{" "}
-            <span className="brand-gradient-text">for Kolkata</span>
+            <span className="hero-gradient-text">for Kolkata</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-3xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
+          <p
+            data-hero-item="lcp"
+            className="mx-auto mt-6 max-w-3xl text-base leading-7 text-white/70 sm:text-lg sm:leading-8"
+          >
             NUVYRIX is a freelance digital product studio helping businesses
             turn ideas into thoughtful websites, web apps, and mobile
             experiences. We work with teams in Kolkata, across West Bengal, and
             throughout India.
           </p>
-          <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+          <div
+            data-hero-item
+            className="mt-9 flex flex-col justify-center gap-3 sm:flex-row"
+          >
             <Button href="/contact" size="lg">
               Discuss your project
               <ArrowRight size={19} />
             </Button>
-            <Button href="/portfolio" variant="outline" size="lg">
+            <Button
+              href="/portfolio"
+              variant="outline"
+              size="lg"
+              className="border-white/25 bg-white/5 text-white backdrop-blur-md hover:bg-white/10"
+            >
               View live projects
             </Button>
           </div>
         </Container>
-      </section>
+      </DarkHero>
+
+      <Section width="6xl" className="pb-8 pt-4 md:pb-10 md:pt-6">
+        <StatsBand />
+      </Section>
 
       <Section width="7xl" className="bg-gradient-to-b from-[#f7f9fc] to-white">
         <div className="mx-auto max-w-3xl text-center">

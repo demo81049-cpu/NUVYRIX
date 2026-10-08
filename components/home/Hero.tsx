@@ -147,7 +147,7 @@ export function Hero() {
       {/* Blend into the light page below */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background"
+        className="pointer-events-none absolute inset-x-0 -bottom-px h-40 bg-gradient-to-b from-transparent to-background"
       />
     </section>
   );

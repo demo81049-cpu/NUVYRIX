@@ -4,6 +4,7 @@ import { FinalCTA } from "@/components/home/FinalCTA";
 import { Blob } from "@/components/ui/Blob";
 import { Card } from "@/components/ui/Card";
 import { Section } from "@/components/layout/Section";
+import { StatsBand } from "@/components/shared/StatsBand";
 import { values } from "@/lib/site";
 import { createPageMetadata } from "@/lib/seo";
 
@@ -19,7 +20,8 @@ export default function AboutPage() {
     <>
       <PageHero
         eyebrow="About"
-        title="A studio-sized partner, freelancers who ship"
+        title="A studio-sized partner,"
+        highlight="freelancers who ship"
         description="NUVYRIX is how we help businesses Build. Launch. Grow.—with thoughtful product craft and clear communication."
       />
 
@@ -57,6 +59,10 @@ export default function AboutPage() {
             </p>
           </div>
         </div>
+      </Section>
+
+      <Section width="6xl" className="pb-20 pt-0 md:pb-24 md:pt-0">
+        <StatsBand />
       </Section>
 
       <Section tone="muted" width="6xl">

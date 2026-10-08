@@ -18,7 +18,8 @@ export default function ContactPage() {
     <>
       <PageHero
         eyebrow="Contact"
-        title="Tell us what you’re building"
+        title="Tell us what"
+        highlight="you’re building"
         description="Share a few details and we’ll reply with next steps. Prefer email, call, or WhatsApp? Reach us anytime."
       />
 
